@@ -1,0 +1,84 @@
+import { Button, Window, WindowContent, WindowHeader } from "react95";
+import { useState } from "react";
+import type { RndState } from "../interfaces/RndState";
+import { Rnd } from "react-rnd";
+import { Delete } from "@react95/icons";
+import type { ProfileProps } from "../interfaces/ProfileProps";
+
+export default function Profile(props: ProfileProps) {
+  const [rndState, setRndState] = useState<RndState>({
+    x: 200,
+    y: 30,
+    width: 960,
+    height: 683,
+  });
+
+  return (
+    <Rnd
+      size={{ width: rndState.width, height: rndState.height }}
+      lockAspectRatio={true}
+      position={{ x: rndState.x, y: rndState.y }}
+      onDragStop={(_event, d) => {
+        setRndState((prev) => ({
+          ...prev,
+          x: d.x,
+          y: d.y,
+        }));
+      }}
+      onResizeStop={(_event, _direction, ref, _delta, position) => {
+        setRndState((prev) => ({
+          ...prev,
+          width: ref.offsetWidth,
+          height: ref.offsetHeight,
+          x: position.x,
+          y: position.y,
+        }));
+      }}
+      style={{ zIndex: 1 }}
+    >
+      <Window
+        shadow
+        className="window"
+        style={{ width: rndState.width, height: rndState.height }}
+      >
+        <WindowHeader
+          className="window-title"
+          style={{
+            minWidth: "18.75rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <span>Profile</span>
+          <Button
+            style={{
+              width: "1.5rem",
+              height: "1.5rem",
+              fontWeight: "bold",
+              fontSize: "1.125rem",
+              lineHeight: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 0,
+            }}
+            onClick={() => props.setShow(false)}
+          >
+            <Delete />
+          </Button>
+        </WindowHeader>
+        <WindowContent>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "30% 70%",
+              gridTemplateRows: "auto auto",
+              gap: "0.5rem",
+            }}
+          ></div>
+        </WindowContent>
+      </Window>
+    </Rnd>
+  );
+}
