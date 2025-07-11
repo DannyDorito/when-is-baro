@@ -12,7 +12,6 @@ import counterStrike from "react95/dist/themes/counterStrike";
 import powerShell from "react95/dist/themes/powerShell";
 import matrix from "react95/dist/themes/matrix";
 import windows1 from "react95/dist/themes/windows1";
-import hotDogStand from "react95/dist/themes/hotDogStand";
 
 const Chatbot = React.lazy(() => import("./components/Chatbot"));
 
@@ -47,7 +46,6 @@ const themeMap: Record<string, Theme> = {
   powerShell,
   matrix,
   windows1,
-  hotDogStand,
 };
 
 const App = () => {

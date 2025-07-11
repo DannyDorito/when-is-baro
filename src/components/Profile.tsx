@@ -22,7 +22,6 @@ const themes: { name: string; colour: string }[] = [
   { name: "powerShell", colour: "#012456" },
   { name: "matrix", colour: "#37ec65" },
   { name: "windows1", colour: "#ffffff" },
-  { name: "hotDogStand", colour: "#ff0000" },
 ];
 
 export default function Profile(props: ProfileProps) {
