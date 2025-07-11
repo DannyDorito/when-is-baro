@@ -1,5 +1,14 @@
 import React, { Suspense, useState } from "react";
-import { AppBar, Button, Hourglass, styleReset, Toolbar } from "react95";
+import {
+  AppBar,
+  Button,
+  Hourglass,
+  MenuList,
+  MenuListItem,
+  Separator,
+  styleReset,
+  Toolbar,
+} from "react95";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 import eggplant from "react95/dist/themes/eggplant";
@@ -50,6 +59,8 @@ const themeMap: Record<string, Theme> = {
 
 const App = () => {
   const [showProfile, setShowProfile] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(true);
+  const [showStart, setShowStart] = useState(false);
   const [settings] = useSettings();
   const selectedTheme = themeMap[settings.theme] || eggplant;
 
@@ -85,9 +96,48 @@ const App = () => {
             }
           >
             {showProfile && <Profile setShow={setShowProfile} />}
-            <Chatbot setShowProfile={setShowProfile} />
+            {showChatbot && (
+              <Chatbot
+                setShowProfile={setShowProfile}
+                setShow={setShowChatbot}
+              />
+            )}
           </Suspense>
         </div>
+        {showStart && (
+          <MenuList
+            style={{
+              position: "absolute",
+              left: 5,
+              bottom: 42, // Height of AppBar
+              padding: "5px",
+              zIndex: 11,
+            }}
+          >
+            <MenuListItem
+              onClick={() => {
+                setShowChatbot(true);
+                setShowStart(false);
+              }}
+              disabled={showChatbot}
+            >
+              <span>Chatbot</span>
+            </MenuListItem>
+            <MenuListItem
+              onClick={() => {
+                setShowProfile(true);
+                setShowStart(false);
+              }}
+              disabled={showProfile}
+            >
+              <span>Profile</span>
+            </MenuListItem>
+            <Separator />
+            <MenuListItem disabled>
+              <span>Logout</span>
+            </MenuListItem>
+          </MenuList>
+        )}
         <AppBar
           style={{
             position: "sticky",
@@ -98,7 +148,12 @@ const App = () => {
         >
           <Toolbar style={{ justifyContent: "space-between" }}>
             <div style={{ position: "relative", display: "inline-block" }}>
-              <Button style={{ fontWeight: "bold" }}>Start</Button>
+              <Button
+                style={{ fontWeight: "bold" }}
+                onClick={() => setShowStart(!showStart)}
+              >
+                Start
+              </Button>
             </div>
           </Toolbar>
         </AppBar>

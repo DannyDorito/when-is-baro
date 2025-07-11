@@ -180,6 +180,7 @@ export default function Chatbot(props: ChatbotProps) {
               justifyContent: "center",
               padding: 0,
             }}
+            onClick={() => props.setShow(false)}
           >
             <Delete />
           </Button>
