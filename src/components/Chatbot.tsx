@@ -10,8 +10,8 @@ import {
   WindowContent,
   WindowHeader,
 } from "react95";
-import ducats from "../assets/ducats.png";
-import lotus from "../assets/lotus.png";
+import ducatsUrl from "../assets/ducats.png";
+import lotusUrl from "../assets/lotus.png";
 import { useState, type ReactNode } from "react";
 import { Rnd } from "react-rnd";
 import { WhoMadeThis } from "./WhoMadeThis";
@@ -41,7 +41,7 @@ export default function Chatbot(props: ChatbotProps) {
     }[]
   >([
     {
-      image: ducats,
+      image: ducatsUrl,
       name: "Automated Message",
       message: "This site is not affiliated with Digital Extremes.",
       colour: "blue",
@@ -81,7 +81,7 @@ export default function Chatbot(props: ChatbotProps) {
     response: string | ReactNode,
     responseImage: string
   ) => {
-    addMessage(settings.username, message, lotus, "red");
+    addMessage(settings.username, message, lotusUrl, "red");
     addMessage(responderName, response, responseImage, "blue", true);
   };
 
@@ -110,7 +110,7 @@ export default function Chatbot(props: ChatbotProps) {
           })}
           !
         </>,
-        ducats
+        ducatsUrl
       );
     } else {
       addUserMessage(
@@ -122,7 +122,7 @@ export default function Chatbot(props: ChatbotProps) {
           [],
           { hour12: true, hour: "numeric" }
         )}!`,
-        ducats
+        ducatsUrl
       );
     }
   };
@@ -213,7 +213,7 @@ export default function Chatbot(props: ChatbotProps) {
                 size={"lg"}
               >
                 <img
-                  src={ducats}
+                  src={ducatsUrl}
                   width={"100%"}
                   className="unselectable"
                   style={{
@@ -300,7 +300,7 @@ export default function Chatbot(props: ChatbotProps) {
               size={"lg"}
             >
               <img
-                src={lotus}
+                src={lotusUrl}
                 width={"100%"}
                 style={{
                   userSelect: "none",
@@ -349,7 +349,7 @@ export default function Chatbot(props: ChatbotProps) {
                     "Who made this?",
                     "John Allison",
                     <WhoMadeThis />,
-                    ducats
+                    ducatsUrl
                   )
                 }
                 disabled={messageLoading}
