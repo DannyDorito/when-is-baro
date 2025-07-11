@@ -15,10 +15,11 @@ import lotus from "../assets/lotus.png";
 import { useState, type ReactNode } from "react";
 import { Rnd } from "react-rnd";
 import { WhoMadeThis } from "./WhoMadeThis";
-import { useBaro } from "../api/Baro";
+import { useBaro } from "../hooks/BaroHook";
 import { Delete } from "@react95/icons";
 import type { RndState } from "../interfaces/RndState";
 import type { ChatbotProps } from "../interfaces/ChatbotProps";
+import { useSettings } from "../hooks/SettingsHook";
 
 export default function Chatbot(props: ChatbotProps) {
   const [rndState, setRndState] = useState<RndState>({
@@ -29,6 +30,7 @@ export default function Chatbot(props: ChatbotProps) {
   });
 
   const baro = useBaro();
+  const [settings] = useSettings();
 
   const [conversation, setConversation] = useState<
     {
@@ -79,7 +81,7 @@ export default function Chatbot(props: ChatbotProps) {
     response: string | ReactNode,
     responseImage: string
   ) => {
-    addMessage("User", message, lotus, "red");
+    addMessage(settings.username, message, lotus, "red");
     addMessage(responderName, response, responseImage, "blue", true);
   };
 
@@ -128,6 +130,8 @@ export default function Chatbot(props: ChatbotProps) {
   return (
     <Rnd
       size={{ width: rndState.width, height: rndState.height }}
+      minWidth={960}
+      minHeight={683}
       lockAspectRatio={true}
       position={{ x: rndState.x, y: rndState.y }}
       onDragStop={(_event, d) => {

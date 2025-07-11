@@ -5,11 +5,20 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import eggplant from "react95/dist/themes/eggplant";
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
+import { useSettings } from "./hooks/SettingsHook";
+import original from "react95/dist/themes/original";
+import theSixtiesUSA from "react95/dist/themes/theSixtiesUSA";
+import counterStrike from "react95/dist/themes/counterStrike";
+import powerShell from "react95/dist/themes/powerShell";
+import matrix from "react95/dist/themes/matrix";
+import windows1 from "react95/dist/themes/windows1";
+import hotDogStand from "react95/dist/themes/hotDogStand";
 
 const Chatbot = React.lazy(() => import("./components/Chatbot"));
 
 import pom from "./assets/pom.jpg";
 import Profile from "./components/Profile";
+import type { Theme } from "react95/dist/types";
 
 const GlobalStyles = createGlobalStyle`
   ${styleReset}
@@ -30,11 +39,24 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+const themeMap: Record<string, Theme> = {
+  original,
+  eggplant,
+  theSixtiesUSA,
+  counterStrike,
+  powerShell,
+  matrix,
+  windows1,
+  hotDogStand,
+};
+
 const App = () => {
   const [showProfile, setShowProfile] = useState(false);
+  const [settings] = useSettings();
+  const selectedTheme = themeMap[settings.theme] || eggplant;
 
   return (
-    <ThemeProvider theme={eggplant}>
+    <ThemeProvider theme={selectedTheme}>
       <div
         style={{
           minHeight: "100vh",

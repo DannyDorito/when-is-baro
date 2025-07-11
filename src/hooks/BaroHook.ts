@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
+import type { BaroData } from "../interfaces/BaroData";
 
-export interface BaroData {
-  relay: string;
-  arrival: Date;
-  departure: Date;
-}
 export function useBaro() {
   const [baroData, setBaroData] = useState<BaroData | undefined>(undefined);
   useEffect(() => {
