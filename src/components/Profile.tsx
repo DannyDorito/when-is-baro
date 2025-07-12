@@ -108,6 +108,7 @@ export default function Profile(props: ProfileProps) {
             <GroupBox style={{ display: "flex", flexDirection: "column" }}>
               {Themes.map((theme, index) => (
                 <Frame
+                  key={theme.name}
                   style={{
                     backgroundColor: theme.colour,
                     margin: "0.25rem",
@@ -123,7 +124,6 @@ export default function Profile(props: ProfileProps) {
                   id="frame"
                 >
                   <Radio
-                    key={index}
                     checked={props.settings.themeIndex === index}
                     onChange={() =>
                       props.setSettings({

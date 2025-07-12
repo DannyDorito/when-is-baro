@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import type { BaroData } from "../interfaces/BaroData";
 
 const getBaroData = async (
-  setBaroData: React.Dispatch<React.SetStateAction<BaroData | undefined>>,
-  signal: AbortSignal
+  setBaroData: React.Dispatch<React.SetStateAction<BaroData | undefined>>
 ) => {
   try {
     const response = await fetch(
-      "https://corsproxy.io/?https://content.warframe.com/dynamic/worldState.php",
-      { signal }
+      "https://corsproxy.io/?https://content.warframe.com/dynamic/worldState.php"
     );
     const data = await response.json();
     const voidTraders = data.VoidTraders;
@@ -43,11 +41,7 @@ const getBaroData = async (
 export function useBaro() {
   const [baroData, setBaroData] = useState<BaroData | undefined>(undefined);
   useEffect(() => {
-    const controller = new AbortController();
-    getBaroData(setBaroData, controller.signal);
-    return () => {
-      controller.abort();
-    };
+    getBaroData(setBaroData);
   }, []);
 
   return baroData;
