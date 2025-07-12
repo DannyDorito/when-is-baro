@@ -96,7 +96,7 @@ const App = () => {
               }}
               disabled={showChatbot}
             >
-              <p>Chatbot</p>
+              <p>CHAT</p>
             </MenuListItem>
             <MenuListItem
               onClick={() => {
@@ -105,7 +105,7 @@ const App = () => {
               }}
               disabled={showProfile}
             >
-              <p>Profile</p>
+              <p>PROFILE</p>
             </MenuListItem>
             <Separator />
             <MenuListItem disabled>
