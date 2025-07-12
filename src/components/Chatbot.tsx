@@ -1,5 +1,4 @@
 import {
-  Anchor,
   Avatar,
   Button,
   Frame,
