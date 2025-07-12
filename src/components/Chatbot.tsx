@@ -226,7 +226,7 @@ export default function Chatbot(props: ChatbotProps) {
                   onClick={() => props.setShowProfile(true)}
                   disabled={props.showProfile}
                 >
-                  PROFILE
+                  My Profile
                 </Button>
               </div>
             </div>

@@ -61,7 +61,7 @@ export default function Profile(props: ProfileProps) {
             alignItems: "center",
           }}
         >
-          <p>Profile</p>
+          <p>My Profile</p>
           <Button
             style={{
               width: "1.5rem",
