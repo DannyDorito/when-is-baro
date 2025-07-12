@@ -1,8 +1,21 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './'
-})
+  base: "./",
+  server: {
+    warmup: {
+      clientFiles: [
+        "./src/main.tsx",
+        "./src/index.css",
+        "./src/App.tsx",
+        "./src/components/Chatbot.tsx",
+        "./src/components/Profile.tsx",
+        "./src/components/WhoMadeThis.tsx",
+        "./src/interfaces/Themes.ts"
+      ],
+    },
+  },
+});

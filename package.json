@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "transform": "vite --debug transform"
   },
   "dependencies": {
     "@react95/icons": "^2.2.0",
