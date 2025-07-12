@@ -9,6 +9,7 @@ import { List, TaskBar } from "@react95/core";
 import { Progman11, Signup } from "@react95/icons";
 
 import '@react95/sans-serif';
+// @ts-expect-error - This is a workaround for the missing type definitions for @react95/core
 import '@react95/core/GlobalStyle';
 import "@react95/core/themes/win95.css";
 

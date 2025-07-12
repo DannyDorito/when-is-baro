@@ -1,23 +1,13 @@
-import { Window, WindowContent, WindowHeader } from "react95";
 import ducatsUrl from "../assets/ducats.png";
 import lotusUrl from "../assets/lotus.png";
 import { useState, type ReactNode } from "react";
-import { Rnd } from "react-rnd";
 import { WhoMadeThis } from "./WhoMadeThis";
 import { useBaro } from "../hooks/BaroHook";
-import { Circle, Delete } from "@react95/icons";
-import type { RndState } from "../interfaces/RndState";
+import { Circle, Signup } from "@react95/icons";
 import type { ChatbotProps } from "../interfaces/ChatbotProps";
-import { Avatar, Button, Frame, List } from "@react95/core";
+import { Avatar, Button, Frame, List, Modal, TitleBar } from "@react95/core";
 
 export default function Chatbot(props: ChatbotProps) {
-  const [rndState, setRndState] = useState<RndState>({
-    x: 200,
-    y: 30,
-    width: 960,
-    height: 683,
-  });
-
   const baro = useBaro();
 
   const [conversation, setConversation] = useState<
@@ -120,232 +110,157 @@ export default function Chatbot(props: ChatbotProps) {
   };
 
   return (
-    <Rnd
-      size={{ width: rndState.width, height: rndState.height }}
-      minWidth={960}
-      minHeight={683}
-      lockAspectRatio={true}
-      position={{ x: rndState.x, y: rndState.y }}
-      onDragStop={(_event, d) => {
-        setRndState((prev) => ({
-          ...prev,
-          x: d.x,
-          y: d.y,
-        }));
-      }}
-      onResizeStop={(_event, _direction, ref, _delta, position) => {
-        setRndState((prev) => ({
-          ...prev,
-          width: ref.offsetWidth,
-          height: ref.offsetHeight,
-          x: position.x,
-          y: position.y,
-        }));
+    // @ts-expect-error - This is a workaround for the missing type definitions for @react95/core
+    <Modal
+      title="Baro Bot"
+      dragOptions={{
+        defaultPosition: {
+          x: 200,
+          y: 30,
+        },
       }}
       style={{ zIndex: 0 }}
-      cancel="img, button, #frame"
+      icon={<Signup variant="32x32_4" />}
+      titleBarOptions={<TitleBar.Close onClick={() => props.setShow(false)} />}
     >
-      <Window
-        className="window"
-        style={{ width: rndState.width, height: rndState.height }}
+      <Modal.Content
+        style={{
+          display: "grid",
+          gridTemplateColumns: "30% 70%",
+          gridTemplateRows: "auto auto",
+          gap: "0.5rem",
+        }}
       >
-        <WindowHeader
-          className="window-title"
+        <div
           style={{
-            minWidth: "18.75rem",
+            gridColumn: 1,
+            gridRow: 1,
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
           }}
         >
-          <p>Baro Bot</p>
-          <Button
+          <Avatar
             style={{
-              width: "1.5rem",
-              height: "1.5rem",
-              fontWeight: "bold",
-              fontSize: "1.125rem",
-              lineHeight: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 0,
+              width: "100%",
+              marginBottom: "0.25rem",
             }}
-            onClick={() => props.setShow(false)}
-          >
-            <Delete />
-          </Button>
-        </WindowHeader>
-        <WindowContent>
+            size={"lg"}
+            src={ducatsUrl}
+          ></Avatar>
+          <div style={{ width: "100%" }}>
+            <Button
+              style={{ width: "100%" }}
+              onClick={() => props.setShowProfile(true)}
+              disabled={props.showProfile}
+            >
+              My Profile
+            </Button>
+          </div>
+        </div>
+        <Frame
+          style={{
+            gridColumn: 2,
+            gridRow: 1,
+            padding: "0.625rem",
+            cursor: "default",
+          }}
+          id="frame"
+        >
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "30% 70%",
-              gridTemplateRows: "auto auto",
-              gap: "0.5rem",
+              width: "100%",
+              height: "18.4rem",
+              overflowY: "scroll",
             }}
           >
-            <div
-              style={{
-                gridColumn: 1,
-                gridRow: 1,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-              }}
-            >
-              <Avatar
-                style={{
-                  width: "100%",
-                  marginBottom: "0.25rem",
-                }}
-                size={"lg"}
-              >
-                <img
-                  src={ducatsUrl}
-                  width={"100%"}
-                  className="unselectable"
-                  style={{
-                    userSelect: "none",
-                    WebkitUserSelect: "none",
-                    MozUserSelect: "none",
-                    msUserSelect: "none",
-                    cursor: "default",
-                  }}
-                />
-              </Avatar>
-              <div style={{ width: "100%" }}>
-                <Button
-                  style={{ width: "100%" }}
-                  onClick={() => props.setShowProfile(true)}
-                  disabled={props.showProfile}
-                >
-                  My Profile
-                </Button>
-              </div>
-            </div>
-            <Frame
-              style={{
-                gridColumn: 2,
-                gridRow: 1,
-                padding: "0.625rem",
-                cursor: "default",
-              }}
-              id="frame"
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "18.4rem",
-                  overflowY: "scroll",
-                }}
-              >
-                <List>
-                  {conversation.map((msg, index) => (
-                    <>
-                      <List.Item
-                        key={index}
-                        icon={
-                          <img
-                            src={msg.image}
-                            width={"64px"}
-                            height={"64px"}
-                            style={{
-                              border: "2px solid #000",
-                              marginRight: "0.25rem",
-                              userSelect: "none",
-                              WebkitUserSelect: "none",
-                              MozUserSelect: "none",
-                              msUserSelect: "none",
-                              cursor: "default",
-                            }}
-                          />
-                        }
-                        style={{ paddingLeft: 0 }}
-                      >
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}
-                        >
-                          <div style={{ color: msg.colour }}>{msg.name}:</div>
-                          <div>{msg.message}</div>
-                        </div>
-                      </List.Item>
-                      <List.Divider />
-                    </>
-                  ))}
-                </List>
-              </div>
-            </Frame>
-            <Avatar
-              style={{
-                width: "100%",
-                marginBottom: "0.25rem",
-              }}
-              size={"lg"}
-            >
-              <img
-                src={lotusUrl}
-                width={"100%"}
-                style={{
-                  userSelect: "none",
-                  WebkitUserSelect: "none",
-                  MozUserSelect: "none",
-                  msUserSelect: "none",
-                  cursor: "default",
-                }}
-              ></img>
-            </Avatar>
-            <Frame
-              style={{
-                gridColumn: 2,
-                gridRow: 2,
-                padding: "0.625rem",
-                cursor: "default",
-              }}
-              id="frame"
-            >
-              <Button
-                style={{
-                  padding: "0.625rem",
-                  justifyContent: "left",
-                  marginBottom: "0.25rem",
-                  width: "100%",
-                }}
-                onClick={() => addBaroBotMessage()}
-                disabled={messageLoading}
-              >
-                <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
-                  &bull;
-                </p>
-                WHEN BARO
-              </Button>
-              <Button
-                style={{
-                  padding: "0.625rem",
-                  justifyContent: "left",
-                  marginBottom: "0.25rem",
-                  width: "100%",
-                }}
-                onClick={() =>
-                  addUserMessage(
-                    "Who made this?",
-                    "John Allison",
-                    <WhoMadeThis />,
-                    ducatsUrl
-                  )
-                }
-                disabled={messageLoading}
-              >
-                <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
-                  &bull;
-                </p>
-                Who made this?
-              </Button>
-            </Frame>
+            <List>
+              {conversation.map((msg, index) => (
+                <>
+                  <List.Item
+                    key={index}
+                    icon={
+                      <img
+                        src={msg.image}
+                        width={"64px"}
+                        height={"64px"}
+                        style={{
+                          border: "2px solid #000",
+                          marginRight: "0.25rem",
+                          userSelect: "none",
+                          WebkitUserSelect: "none",
+                          MozUserSelect: "none",
+                          msUserSelect: "none",
+                          cursor: "default",
+                        }}
+                      />
+                    }
+                    style={{ paddingLeft: 0 }}
+                  >
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <div style={{ color: msg.colour }}>{msg.name}:</div>
+                      <div>{msg.message}</div>
+                    </div>
+                  </List.Item>
+                  <List.Divider />
+                </>
+              ))}
+            </List>
           </div>
-        </WindowContent>
-      </Window>
-    </Rnd>
+        </Frame>
+        <Avatar
+          style={{
+            width: "100%",
+            marginBottom: "0.25rem",
+          }}
+          size={"lg"}
+          src={lotusUrl}
+        ></Avatar>
+        <Frame
+          style={{
+            gridColumn: 2,
+            gridRow: 2,
+            padding: "0.625rem",
+            cursor: "default",
+          }}
+          id="frame"
+        >
+          <Button
+            style={{
+              padding: "0.625rem",
+              justifyContent: "left",
+              marginBottom: "0.25rem",
+              width: "100%",
+            }}
+            onClick={() => addBaroBotMessage()}
+            disabled={messageLoading}
+          >
+            <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>&bull;</p>
+            WHEN BARO
+          </Button>
+          <Button
+            style={{
+              padding: "0.625rem",
+              justifyContent: "left",
+              marginBottom: "0.25rem",
+              width: "100%",
+            }}
+            onClick={() =>
+              addUserMessage(
+                "Who made this?",
+                "John Allison",
+                <WhoMadeThis />,
+                ducatsUrl
+              )
+            }
+            disabled={messageLoading}
+          >
+            <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>&bull;</p>
+            Who made this?
+          </Button>
+        </Frame>
+      </Modal.Content>
+    </Modal>
   );
 }

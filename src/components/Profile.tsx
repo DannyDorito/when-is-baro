@@ -1,86 +1,34 @@
-import { Window, WindowContent, WindowHeader } from "react95";
-import { useState } from "react";
-import type { RndState } from "../interfaces/RndState";
-import { Rnd } from "react-rnd";
-import { Delete } from "@react95/icons";
+import { Progman11 } from "@react95/icons";
 import type { ProfileProps } from "../interfaces/ProfileProps";
 import { Themes } from "../interfaces/Themes";
-import { Button, Frame, Input, RadioButton } from "@react95/core";
+import { Frame, Input, Modal, RadioButton, TitleBar } from "@react95/core";
 
 export default function Profile(props: ProfileProps) {
-  const [rndState, setRndState] = useState<RndState>({
-    x: 300,
-    y: 80,
-    width: 480,
-    height: 600,
-  });
-
   return (
-    <Rnd
-      size={{ width: rndState.width, height: rndState.height }}
-      minWidth={480}
-      minHeight={600}
-      position={{ x: rndState.x, y: rndState.y }}
-      onDragStop={(_event, d) => {
-        setRndState((prev) => ({
-          ...prev,
-          x: d.x,
-          y: d.y,
-        }));
-      }}
-      onResizeStop={(_event, _direction, ref, _delta, position) => {
-        setRndState((prev) => ({
-          ...prev,
-          width: ref.offsetWidth,
-          height: ref.offsetHeight,
-          x: position.x,
-          y: position.y,
-        }));
+    // @ts-expect-error - This is a workaround for the missing type definitions for @react95/core
+    <Modal
+      title="My Profile"
+      dragOptions={{
+        defaultPosition: {
+          x: 300,
+          y: 80,
+        },
       }}
       style={{ zIndex: 1 }}
-      cancel="img, button, #frame"
+      icon={<Progman11 variant="32x32_4" />}
+      titleBarOptions={<TitleBar.Close onClick={() => props.setShow(false)} />}
     >
-      <Window
-        className="window"
-        style={{ width: rndState.width, height: rndState.height }}
-      >
-        <WindowHeader
-          className="window-title"
+      <Modal.Content>
+        <div
           style={{
-            minWidth: "18.75rem",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: "grid",
+            gridTemplateColumns: "30% 70%",
+            gridTemplateRows: "auto auto",
+            gap: "0.5rem",
           }}
         >
-          <p>My Profile</p>
-          <Button
-            style={{
-              width: "1.5rem",
-              height: "1.5rem",
-              fontWeight: "bold",
-              fontSize: "1.125rem",
-              lineHeight: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 0,
-            }}
-            onClick={() => props.setShow(false)}
-          >
-            <Delete />
-          </Button>
-        </WindowHeader>
-        <WindowContent>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "30% 70%",
-              gridTemplateRows: "auto auto",
-              gap: "0.5rem",
-            }}
-          >
-            <div>Username:</div>
+          <div>Username:</div>
+          <Frame>
             <Input
               autoComplete="off"
               value={props.settings.username}
@@ -91,48 +39,48 @@ export default function Profile(props: ProfileProps) {
                 })
               }
               style={{
-                width: "100%",
+                width: "calc(100% - 4px)",
               }}
             ></Input>
-            <div>
-              <strong>Theme:</strong>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {Themes.map((theme, index) => (
-                <Frame
-                  key={theme.name}
-                  style={{
-                    backgroundColor: theme.colour,
-                    margin: "0.25rem",
-                    padding: "0.25rem",
-                    cursor: "pointer",
-                  }}
+          </Frame>
+          <div>
+            <strong>Theme:</strong>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {Themes.map((theme, index) => (
+              <Frame
+                key={theme.name}
+                style={{
+                  backgroundColor: theme.colour,
+                  margin: "0.25rem",
+                  padding: "0.25rem",
+                  cursor: "pointer",
+                }}
+                onChange={() =>
+                  props.setSettings({
+                    ...props.settings,
+                    themeIndex: index,
+                  })
+                }
+                id="frame"
+              >
+                <RadioButton
+                  checked={props.settings.themeIndex === index}
                   onChange={() =>
                     props.setSettings({
                       ...props.settings,
                       themeIndex: index,
                     })
                   }
-                  id="frame"
+                  value={theme.name}
                 >
-                  <RadioButton
-                    checked={props.settings.themeIndex === index}
-                    onChange={() =>
-                      props.setSettings({
-                        ...props.settings,
-                        themeIndex: index,
-                      })
-                    }
-                    value={theme.name}
-                  >
-                    {theme.name}
-                  </RadioButton>
-                </Frame>
-              ))}
-            </div>
+                  {theme.name}
+                </RadioButton>
+              </Frame>
+            ))}
           </div>
-        </WindowContent>
-      </Window>
-    </Rnd>
+        </div>
+      </Modal.Content>
+    </Modal>
   );
 }
