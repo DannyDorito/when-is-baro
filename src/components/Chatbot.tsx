@@ -19,7 +19,6 @@ import { useBaro } from "../hooks/BaroHook";
 import { Delete } from "@react95/icons";
 import type { RndState } from "../interfaces/RndState";
 import type { ChatbotProps } from "../interfaces/ChatbotProps";
-import { useSettings } from "../hooks/SettingsHook";
 
 export default function Chatbot(props: ChatbotProps) {
   const [rndState, setRndState] = useState<RndState>({
@@ -30,7 +29,6 @@ export default function Chatbot(props: ChatbotProps) {
   });
 
   const baro = useBaro();
-  const [settings] = useSettings();
 
   const [conversation, setConversation] = useState<
     {
@@ -81,7 +79,7 @@ export default function Chatbot(props: ChatbotProps) {
     response: string | ReactNode,
     responseImage: string
   ) => {
-    addMessage(settings.username, message, lotusUrl, "red");
+    addMessage(props.settings.username, message, lotusUrl, "red");
     addMessage(responderName, response, responseImage, "blue", true);
   };
 
@@ -154,7 +152,6 @@ export default function Chatbot(props: ChatbotProps) {
       cancel="img, button, #frame"
     >
       <Window
-        shadow
         className="window"
         style={{ width: rndState.width, height: rndState.height }}
       >
@@ -167,7 +164,7 @@ export default function Chatbot(props: ChatbotProps) {
             alignItems: "center",
           }}
         >
-          <span>Baro Bot</span>
+          <p>Baro Bot</p>
           <Button
             style={{
               width: "1.5rem",
@@ -205,11 +202,10 @@ export default function Chatbot(props: ChatbotProps) {
               }}
             >
               <Avatar
-                square
+                square={true}
                 style={{
                   width: "100%",
                   marginBottom: "0.25rem",
-                  background: "#e0e0e0",
                 }}
                 size={"lg"}
               >
@@ -227,24 +223,25 @@ export default function Chatbot(props: ChatbotProps) {
                 />
               </Avatar>
               <div style={{ width: "100%" }}>
-                <Button fullWidth onClick={() => props.setShowProfile(true)}>
+                <Button
+                  style={{ width: "100%" }}
+                  onClick={() => props.setShowProfile(true)}
+                  disabled={props.showProfile}
+                >
                   PROFILE
                 </Button>
               </div>
             </div>
             <Frame
-              shadow
               style={{
                 gridColumn: 2,
                 gridRow: 1,
-                background: "#e0e0e0",
                 padding: "0.625rem",
                 cursor: "default",
               }}
               id="frame"
             >
               <ScrollView
-                shadow
                 style={{
                   width: "100%",
                   height: "18.4rem",
@@ -292,11 +289,10 @@ export default function Chatbot(props: ChatbotProps) {
               </ScrollView>
             </Frame>
             <Avatar
-              square
+              square={true}
               style={{
                 width: "100%",
                 marginBottom: "0.25rem",
-                background: "#e0e0e0",
               }}
               size={"lg"}
             >
@@ -313,37 +309,35 @@ export default function Chatbot(props: ChatbotProps) {
               ></img>
             </Avatar>
             <Frame
-              shadow
               style={{
                 gridColumn: 2,
                 gridRow: 2,
                 padding: "0.625rem",
-                background: "#e0e0e0",
                 cursor: "default",
               }}
               id="frame"
             >
               <Button
-                fullWidth
                 style={{
                   padding: "0.625rem",
                   justifyContent: "left",
                   marginBottom: "0.25rem",
+                  width: "100%",
                 }}
                 onClick={() => addBaroBotMessage()}
                 disabled={messageLoading}
               >
-                <span style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
+                <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
                   &bull;
-                </span>
+                </p>
                 WHEN BARO
               </Button>
               <Button
-                fullWidth
                 style={{
                   padding: "0.625rem",
                   justifyContent: "left",
                   marginBottom: "0.25rem",
+                  width: "100%",
                 }}
                 onClick={() =>
                   addUserMessage(
@@ -355,9 +349,9 @@ export default function Chatbot(props: ChatbotProps) {
                 }
                 disabled={messageLoading}
               >
-                <span style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
+                <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
                   &bull;
-                </span>
+                </p>
                 Who made this?
               </Button>
             </Frame>

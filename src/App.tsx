@@ -1,8 +1,7 @@
-import React, { Suspense, useState } from "react";
+import { useState } from "react";
 import {
   AppBar,
   Button,
-  Hourglass,
   MenuList,
   MenuListItem,
   Separator,
@@ -11,22 +10,14 @@ import {
 } from "react95";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
-import eggplant from "react95/dist/themes/eggplant";
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
-import { useSettings } from "./hooks/SettingsHook";
-import original from "react95/dist/themes/original";
-import theSixtiesUSA from "react95/dist/themes/theSixtiesUSA";
-import counterStrike from "react95/dist/themes/counterStrike";
-import powerShell from "react95/dist/themes/powerShell";
-import matrix from "react95/dist/themes/matrix";
-import windows1 from "react95/dist/themes/windows1";
 
-const Chatbot = React.lazy(() => import("./components/Chatbot"));
-
+import Chatbot from "./components/Chatbot";
 import pom from "./assets/pom.jpg";
 import Profile from "./components/Profile";
-import type { Theme } from "react95/dist/types";
+import { Themes } from "./interfaces/Themes";
+import { useSettings } from "./hooks/SettingsHook";
 
 const GlobalStyles = createGlobalStyle`
   ${styleReset}
@@ -47,25 +38,15 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const themeMap: Record<string, Theme> = {
-  original,
-  eggplant,
-  theSixtiesUSA,
-  counterStrike,
-  powerShell,
-  matrix,
-  windows1,
-};
-
 const App = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showChatbot, setShowChatbot] = useState(true);
   const [showStart, setShowStart] = useState(false);
-  const [settings] = useSettings();
-  const selectedTheme = themeMap[settings.theme] || eggplant;
+
+  const [settings, setSettings] = useSettings();
 
   return (
-    <ThemeProvider theme={selectedTheme}>
+    <ThemeProvider theme={Themes[settings.themeIndex].theme}>
       <div
         style={{
           minHeight: "100vh",
@@ -81,35 +62,29 @@ const App = () => {
       >
         <GlobalStyles />
         <div style={{ flex: 1, position: "relative" }}>
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100vh",
-                }}
-              >
-                <Hourglass size={96} />
-              </div>
-            }
-          >
-            {showProfile && <Profile setShow={setShowProfile} />}
-            {showChatbot && (
-              <Chatbot
-                setShowProfile={setShowProfile}
-                setShow={setShowChatbot}
-              />
-            )}
-          </Suspense>
+          {showProfile && (
+            <Profile
+              setShow={setShowProfile}
+              settings={settings}
+              setSettings={setSettings}
+            />
+          )}
+          {showChatbot && (
+            <Chatbot
+              showProfile={showProfile}
+              setShowProfile={setShowProfile}
+              setShow={setShowChatbot}
+              settings={settings}
+              setSettings={setSettings}
+            />
+          )}
         </div>
         {showStart && (
           <MenuList
             style={{
               position: "absolute",
               left: 5,
-              bottom: 42, // Height of AppBar
+              bottom: 42,
               padding: "5px",
               zIndex: 11,
             }}
@@ -121,7 +96,7 @@ const App = () => {
               }}
               disabled={showChatbot}
             >
-              <span>Chatbot</span>
+              <p>Chatbot</p>
             </MenuListItem>
             <MenuListItem
               onClick={() => {
@@ -130,11 +105,11 @@ const App = () => {
               }}
               disabled={showProfile}
             >
-              <span>Profile</span>
+              <p>Profile</p>
             </MenuListItem>
             <Separator />
             <MenuListItem disabled>
-              <span>Logout</span>
+              <p>Logout</p>
             </MenuListItem>
           </MenuList>
         )}

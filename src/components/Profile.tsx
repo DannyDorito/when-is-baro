@@ -1,5 +1,6 @@
 import {
   Button,
+  Frame,
   GroupBox,
   Radio,
   TextInput,
@@ -12,33 +13,21 @@ import type { RndState } from "../interfaces/RndState";
 import { Rnd } from "react-rnd";
 import { Delete } from "@react95/icons";
 import type { ProfileProps } from "../interfaces/ProfileProps";
-import { useSettings } from "../hooks/SettingsHook";
-
-const themes: { name: string; colour: string }[] = [
-  { name: "original", colour: "#c6c6c6" },
-  { name: "eggplant", colour: "#89b0a8" },
-  { name: "theSixtiesUSA", colour: "#d067d7" },
-  { name: "counterStrike", colour: "#4b5844" },
-  { name: "powerShell", colour: "#012456" },
-  { name: "matrix", colour: "#37ec65" },
-  { name: "windows1", colour: "#ffffff" },
-];
+import { Themes } from "../interfaces/Themes";
 
 export default function Profile(props: ProfileProps) {
   const [rndState, setRndState] = useState<RndState>({
     x: 300,
     y: 80,
     width: 480,
-    height: 580,
+    height: 600,
   });
-
-  const [settings, setSettings] = useSettings();
 
   return (
     <Rnd
       size={{ width: rndState.width, height: rndState.height }}
       minWidth={480}
-      minHeight={580}
+      minHeight={600}
       position={{ x: rndState.x, y: rndState.y }}
       onDragStop={(_event, d) => {
         setRndState((prev) => ({
@@ -57,9 +46,9 @@ export default function Profile(props: ProfileProps) {
         }));
       }}
       style={{ zIndex: 1 }}
+      cancel="img, button, #frame"
     >
       <Window
-        shadow
         className="window"
         style={{ width: rndState.width, height: rndState.height }}
       >
@@ -72,7 +61,7 @@ export default function Profile(props: ProfileProps) {
             alignItems: "center",
           }}
         >
-          <span>Profile</span>
+          <p>Profile</p>
           <Button
             style={{
               width: "1.5rem",
@@ -101,38 +90,51 @@ export default function Profile(props: ProfileProps) {
           >
             <div>Username:</div>
             <TextInput
-              fullWidth
-              value={settings.username}
+              autoComplete="off"
+              value={props.settings.username}
               onChange={(e) =>
-                setSettings({ ...settings, username: e.target.value })
+                props.setSettings({
+                  ...props.settings,
+                  username: e.target.value,
+                })
               }
+              style={{
+                width: "100%",
+              }}
             ></TextInput>
             <div>
               <strong>Theme:</strong>
             </div>
             <GroupBox style={{ display: "flex", flexDirection: "column" }}>
-              {themes.map((theme, index) => (
-                <div
+              {Themes.map((theme, index) => (
+                <Frame
                   style={{
                     backgroundColor: theme.colour,
-                    color: "#000",
                     margin: "0.25rem",
                     padding: "0.25rem",
+                    cursor: "pointer",
                   }}
+                  onChange={() =>
+                    props.setSettings({
+                      ...props.settings,
+                      themeIndex: index,
+                    })
+                  }
+                  id="frame"
                 >
                   <Radio
                     key={index}
-                    checked={settings.theme === theme.name}
+                    checked={props.settings.themeIndex === index}
                     onChange={() =>
-                      setSettings({ ...settings, theme: theme.name })
+                      props.setSettings({
+                        ...props.settings,
+                        themeIndex: index,
+                      })
                     }
                     value={theme.name}
-                    label={
-                      theme.name.charAt(0).toUpperCase() + theme.name.slice(1)
-                    }
+                    label={theme.name}
                   />
-                  <br />
-                </div>
+                </Frame>
               ))}
             </GroupBox>
           </div>
