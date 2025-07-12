@@ -6,4 +6,5 @@ export interface ChatbotProps {
   setShow: (show: boolean) => void;
   settings: SettingsData;
   setSettings: (settings: SettingsData) => void;
+  locale: string;
 }

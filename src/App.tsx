@@ -20,6 +20,7 @@ import lotusSmallUrl from "./assets/lotusSmall.png";
 import Profile from "./components/Profile";
 import { Themes } from "./interfaces/Themes";
 import { useSettings } from "./hooks/SettingsHook";
+import { useLocale } from "./hooks/LocaleHook";
 
 const GlobalStyles = createGlobalStyle`
   ${styleReset}
@@ -46,6 +47,8 @@ const App = () => {
   const [showStart, setShowStart] = useState(false);
 
   const [settings, setSettings] = useSettings();
+
+  const locale = useLocale();
 
   const [now, setNow] = useState(new Date());
   useEffect(() => {
@@ -84,6 +87,7 @@ const App = () => {
               setShow={setShowChatbot}
               settings={settings}
               setSettings={setSettings}
+              locale={locale}
             />
           )}
         </div>
@@ -169,7 +173,7 @@ const App = () => {
                   }}
                   className="unselectable"
                 >
-                  {now.toLocaleTimeString([], {
+                  {now.toLocaleTimeString(locale, {
                     hour: "2-digit",
                     minute: "2-digit",
                     hour12: true,
@@ -182,7 +186,7 @@ const App = () => {
                   }}
                   className="unselectable"
                 >
-                  {now.toLocaleDateString()}
+                  {now.toLocaleDateString(locale)}
                 </span>
               </div>
             </Frame>

@@ -11,7 +11,7 @@ import {
 } from "react95";
 import ducatsUrl from "../assets/ducats.png";
 import lotusUrl from "../assets/lotus.png";
-import { useState, type ReactNode, } from "react";
+import { useState, type ReactNode } from "react";
 import { Rnd } from "react-rnd";
 import { WhoMadeThis } from "./WhoMadeThis";
 import { useBaro } from "../hooks/BaroHook";
@@ -99,8 +99,9 @@ export default function Chatbot(props: ChatbotProps) {
           >
             {baro.relay}
           </span>
-          &nbsp;and will depart at&nbsp;
-          {baro.departure.toLocaleTimeString([], {
+          &nbsp;and will depart&nbsp;
+          {baro.departure.toLocaleDateString()}&nbsp;at&nbsp;
+          {baro.departure.toLocaleTimeString(props.locale, {
             hour12: true,
             hour: "numeric",
           })}
@@ -115,7 +116,7 @@ export default function Chatbot(props: ChatbotProps) {
         `Baro Ki'Teer will arrive at the ${
           baro.relay
         } at ${baro.arrival.toLocaleString()} and depart on ${baro.departure.toLocaleTimeString(
-          [],
+          props.locale,
           { hour12: true, hour: "numeric" }
         )}!`,
         ducatsUrl
