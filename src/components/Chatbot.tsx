@@ -92,15 +92,14 @@ export default function Chatbot(props: ChatbotProps) {
         "Baro Bot",
         <>
           Baro Ki'Teer has arrived at the&nbsp;
-          <Anchor
-            href="https://wiki.warframe.com/w/Relay"
-            target="_blank"
-            hrefLang="en-gb"
-            rel="noopener noreferrer"
-            aria-label="Relay Wiki Link"
+          <span
+            style={{
+              textDecoration: "underline",
+              textDecorationThickness: "auto",
+            }}
           >
             {baro.relay}
-          </Anchor>
+          </span>
           &nbsp;and will depart at&nbsp;
           {baro.departure.toLocaleTimeString([], {
             hour12: true,
