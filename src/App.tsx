@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Button,
+  Frame,
   MenuList,
   MenuListItem,
   Separator,
@@ -15,6 +16,7 @@ import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 
 import Chatbot from "./components/Chatbot";
 import pom from "./assets/pom.jpg";
+import lotusSmallUrl from "./assets/lotusSmall.png";
 import Profile from "./components/Profile";
 import { Themes } from "./interfaces/Themes";
 import { useSettings } from "./hooks/SettingsHook";
@@ -44,6 +46,12 @@ const App = () => {
   const [showStart, setShowStart] = useState(false);
 
   const [settings, setSettings] = useSettings();
+
+  const [now, setNow] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <ThemeProvider theme={Themes[settings.themeIndex].theme}>
@@ -85,7 +93,7 @@ const App = () => {
               position: "absolute",
               left: 5,
               bottom: 42,
-              padding: "5px",
+              padding: "0.313",
               zIndex: 11,
             }}
           >
@@ -103,12 +111,11 @@ const App = () => {
                 setShowProfile(true);
                 setShowStart(false);
               }}
-              disabled={showProfile}
             >
               <p>My Profile</p>
             </MenuListItem>
             <Separator />
-            <MenuListItem disabled>
+            <MenuListItem>
               <p>Logout</p>
             </MenuListItem>
           </MenuList>
@@ -127,9 +134,58 @@ const App = () => {
                 style={{ fontWeight: "bold" }}
                 onClick={() => setShowStart(!showStart)}
               >
+                <img
+                  src={lotusSmallUrl}
+                  alt="Lotus Logo"
+                  style={{ marginRight: "0.625rem" }}
+                  width={32}
+                ></img>
                 Start
               </Button>
             </div>
+            <Frame
+              style={{
+                position: "relative",
+                display: "inline-block",
+                height: "2.508rem",
+                width: "6.239rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  justifyItems: "center",
+                  height: "100%",
+                  flexDirection: "column",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.95rem",
+                    lineHeight: 1.1,
+                    fontWeight: 600,
+                  }}
+                  className="unselectable"
+                >
+                  {now.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.85rem",
+                    lineHeight: 1,
+                  }}
+                  className="unselectable"
+                >
+                  {now.toLocaleDateString()}
+                </span>
+              </div>
+            </Frame>
           </Toolbar>
         </AppBar>
       </div>

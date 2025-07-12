@@ -11,7 +11,7 @@ import {
 } from "react95";
 import ducatsUrl from "../assets/ducats.png";
 import lotusUrl from "../assets/lotus.png";
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, } from "react";
 import { Rnd } from "react-rnd";
 import { WhoMadeThis } from "./WhoMadeThis";
 import { useBaro } from "../hooks/BaroHook";
@@ -56,7 +56,7 @@ export default function Chatbot(props: ChatbotProps) {
   ) => {
     setMessageLoading(true);
     if (wait) {
-      const randomWait = Math.random() * 2; // Random wait between 0 and 2 seconds
+      const randomWait = Math.random() * 2;
       setConversation((prev) => [
         ...prev,
         { name, message: <Hourglass size={17} />, image, colour },
@@ -260,7 +260,7 @@ export default function Chatbot(props: ChatbotProps) {
                           width={"50rem"}
                           height={"50rem"}
                           style={{
-                            border: "2px solid #000",
+                            border: "0.125rem solid #000",
                             marginRight: "0.25rem",
                             userSelect: "none",
                             WebkitUserSelect: "none",
