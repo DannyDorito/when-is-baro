@@ -2,8 +2,27 @@ import { Progman11 } from "@react95/icons";
 import type { ProfileProps } from "../interfaces/ProfileProps";
 import { Themes } from "../interfaces/Themes";
 import { Frame, Input, Modal, RadioButton, TitleBar } from "@react95/core";
+import { useEffect } from "react";
 
 export default function Profile(props: ProfileProps) {
+  useEffect(() => {
+    // Remove any previous theme link
+    const prev = document.getElementById("theme-css");
+    if (prev) prev.remove();
+
+    // Add the new theme
+    const link = document.createElement("link");
+    link.id = "theme-css";
+    link.rel = "stylesheet";
+    link.href = Themes[props.settings.themeIndex].path;
+    document.head.appendChild(link);
+
+    // Cleanup
+    return () => {
+      link.remove();
+    };
+  }, [props.settings.themeIndex]);
+
   return (
     // @ts-expect-error - This is a workaround for the missing type definitions for @react95/core
     <Modal

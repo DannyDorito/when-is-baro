@@ -1,0 +1,58 @@
+:root {
+  --r95-zIndex-modal: 2;
+  --r95-zIndex-tooltip: 3;
+  --r95-zIndex-taskbar: 3;
+  --r95-space-0: 0px;
+  --r95-space-1: 1px;
+  --r95-space-2: 2px;
+  --r95-space-3: 3px;
+  --r95-space-4: 4px;
+  --r95-space-5: 5px;
+  --r95-space-6: 6px;
+  --r95-space-7: 7px;
+  --r95-space-8: 8px;
+  --r95-space-9: 9px;
+  --r95-space-10: 10px;
+  --r95-space-11: 11px;
+  --r95-space-12: 12px;
+  --r95-space-13: 13px;
+  --r95-space-14: 14px;
+  --r95-space-15: 15px;
+  --r95-space-16: 16px;
+  --r95-space-17: 17px;
+  --r95-space-18: 18px;
+  --r95-space-19: 19px;
+  --r95-space-20: 20px;
+  --r95-color-anchor: #1034a6;
+  --r95-color-anchorVisited: #440381;
+  --r95-color-borderDark: #828282;
+  --r95-color-borderDarkest: black;
+  --r95-color-borderLight: #e5e5e5;
+  --r95-color-borderLighter: #f0f0f0;
+  --r95-color-borderLightest: #f6f6f6;
+  --r95-color-canvas: black;
+  --r95-color-canvasText: #ffffff;
+  --r95-color-headerBackground: linear-gradient(to right, #012470, #a5c7e7);
+  --r95-color-headerNotActiveBackground: #7f7f7f;
+  --r95-color-headerNotActiveText: #d6cfc7;
+  --r95-color-headerText: #ffffff;
+  --r95-color-material: #d6cfc7;
+  --r95-color-materialText: black;
+  --r95-color-materialTextDisabled: #828282;
+  --r95-color-materialTextDisabledShadow: #ffffff;
+  --r95-color-materialTextInvert: #ffffff;
+  --r95-color-progress: #00256e;
+  --r95-color-inputBackground: #ffffff;
+  --r95-color-inputBackgroundDisabled: #e5e5e5;
+  --r95-shadow-out: inset 0.5px 0.5px 0px 0.5px #f6f6f6,
+          inset 0 0 0 1px #828282,
+          1px 0px 0 0px black,
+          0px 1px 0 0px black,
+          1px 1px 0 0px black;
+  --r95-shadow-in: inset 0px 0px 0px 0px,
+        inset 1px 1px 0px 0px #828282,
+        0.5px 0.5px 0px 0.5px #f6f6f6;
+  --r95-shadow-input: inset -1px -1px 0 0 #d6cfc7,
+            inset 1px 1px 0 0 black,
+            0.5px 0.5px 0 0.5px #f6f6f6;
+}

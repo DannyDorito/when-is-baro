@@ -1,19 +1,9 @@
-import eggplant from "react95/dist/themes/eggplant";
-import original from "react95/dist/themes/original";
-import theSixtiesUSA from "react95/dist/themes/theSixtiesUSA";
-import counterStrike from "react95/dist/themes/counterStrike";
-import powerShell from "react95/dist/themes/powerShell";
-import matrix from "react95/dist/themes/matrix";
-import millenium from "react95/dist/themes/millenium";
-import darkTeal from "react95/dist/themes/darkTeal";
-
 export const Themes = [
-  { theme: eggplant, name: "Eggplant", colour: "#89b0a8" },
-  { theme: original, name: "Original",colour: "#c6c6c6" },
-  { theme: theSixtiesUSA, name: "The Sixties USA",colour: "#d067d7" },
-  { theme: counterStrike, name: "Counter Strike",colour: "#4b5844" },
-  { theme: powerShell, name: "PowerShell",colour: "#012456" },
-  { theme: matrix, name: "Matrix",colour: "#37ec65" },
-  { theme: millenium, name: "Millenium",colour: "#d6cfc7" },
-  { theme: darkTeal, name: "Dark Teal",colour: "#204040" },
+  { path: "/themes/win95.css.ts.vanilla.css", name: "Windows 95", colour: "#c3c7cb" },
+  { path: "/themes/eggplant.css.ts.vanilla.css", name: "Eggplant", colour: "#89b0a8" },
+  { path: "/themes/pamelaAnderson.css.ts.vanilla.css", name: "Pamela Anderson", colour: "#ff0080" },
+  { path: "/themes/counterStrike.css.ts.vanilla.css", name: "Counter Strike", colour: "#4b5844" },
+  { path: "/themes/matrix.css.ts.vanilla.css", name: "Matrix", colour: "#535353" },
+  { path: "/themes/millenium.css.ts.vanilla.css", name: "Millenium", colour: "#d6cfc7" },
+  { path: "/themes/tooSexy.css.ts.vanilla.css", name: "Too Sexy", colour: "#b80100" },
 ];
