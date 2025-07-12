@@ -1,23 +1,14 @@
-import {
-  Avatar,
-  Button,
-  Frame,
-  Hourglass,
-  ScrollView,
-  Separator,
-  Window,
-  WindowContent,
-  WindowHeader,
-} from "react95";
+import { Window, WindowContent, WindowHeader } from "react95";
 import ducatsUrl from "../assets/ducats.png";
 import lotusUrl from "../assets/lotus.png";
 import { useState, type ReactNode } from "react";
 import { Rnd } from "react-rnd";
 import { WhoMadeThis } from "./WhoMadeThis";
 import { useBaro } from "../hooks/BaroHook";
-import { Delete } from "@react95/icons";
+import { Circle, Delete } from "@react95/icons";
 import type { RndState } from "../interfaces/RndState";
 import type { ChatbotProps } from "../interfaces/ChatbotProps";
+import { Avatar, Button, Frame, List } from "@react95/core";
 
 export default function Chatbot(props: ChatbotProps) {
   const [rndState, setRndState] = useState<RndState>({
@@ -59,7 +50,12 @@ export default function Chatbot(props: ChatbotProps) {
       const randomWait = Math.random() * 2; // Random wait between 0 and 2 seconds
       setConversation((prev) => [
         ...prev,
-        { name, message: <Hourglass size={17} />, image, colour },
+        {
+          name,
+          message: <Circle variant={"16x16_4"} className="spin" />,
+          image,
+          colour,
+        },
       ]);
       setTimeout(() => {
         setConversation((prev) => prev.slice(0, -1));
@@ -200,7 +196,6 @@ export default function Chatbot(props: ChatbotProps) {
               }}
             >
               <Avatar
-                square={true}
                 style={{
                   width: "100%",
                   marginBottom: "0.25rem",
@@ -239,55 +234,50 @@ export default function Chatbot(props: ChatbotProps) {
               }}
               id="frame"
             >
-              <ScrollView
+              <div
                 style={{
                   width: "100%",
                   height: "18.4rem",
+                  overflowY: "scroll",
                 }}
               >
-                <div>
+                <List>
                   {conversation.map((msg, index) => (
-                    <div key={index}>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyItems: "center",
-                        }}
+                    <>
+                      <List.Item
+                        key={index}
+                        icon={
+                          <img
+                            src={msg.image}
+                            width={"64px"}
+                            height={"64px"}
+                            style={{
+                              border: "2px solid #000",
+                              marginRight: "0.25rem",
+                              userSelect: "none",
+                              WebkitUserSelect: "none",
+                              MozUserSelect: "none",
+                              msUserSelect: "none",
+                              cursor: "default",
+                            }}
+                          />
+                        }
+                        style={{ paddingLeft: 0 }}
                       >
-                        <img
-                          src={msg.image}
-                          width={"50rem"}
-                          height={"50rem"}
-                          style={{
-                            border: "2px solid #000",
-                            marginRight: "0.25rem",
-                            userSelect: "none",
-                            WebkitUserSelect: "none",
-                            MozUserSelect: "none",
-                            msUserSelect: "none",
-                            cursor: "default",
-                          }}
-                        ></img>
                         <div
-                          style={{
-                            marginBottom: "0.5rem",
-                            display: "flex",
-                            flexDirection: "column",
-                          }}
+                          style={{ display: "flex", flexDirection: "column" }}
                         >
                           <div style={{ color: msg.colour }}>{msg.name}:</div>
                           <div>{msg.message}</div>
                         </div>
-                      </div>
-                      <Separator />
-                    </div>
+                      </List.Item>
+                      <List.Divider />
+                    </>
                   ))}
-                </div>
-              </ScrollView>
+                </List>
+              </div>
             </Frame>
             <Avatar
-              square={true}
               style={{
                 width: "100%",
                 marginBottom: "0.25rem",

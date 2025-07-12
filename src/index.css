@@ -4,3 +4,16 @@
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+body {
+  font-family: 'R95 Sans Serif 24pt';
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: spin 0.5s linear infinite;
+}

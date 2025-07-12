@@ -1,19 +1,11 @@
-import {
-  Button,
-  Frame,
-  GroupBox,
-  Radio,
-  TextInput,
-  Window,
-  WindowContent,
-  WindowHeader,
-} from "react95";
+import { Window, WindowContent, WindowHeader } from "react95";
 import { useState } from "react";
 import type { RndState } from "../interfaces/RndState";
 import { Rnd } from "react-rnd";
 import { Delete } from "@react95/icons";
 import type { ProfileProps } from "../interfaces/ProfileProps";
 import { Themes } from "../interfaces/Themes";
+import { Button, Frame, Input, RadioButton } from "@react95/core";
 
 export default function Profile(props: ProfileProps) {
   const [rndState, setRndState] = useState<RndState>({
@@ -89,7 +81,7 @@ export default function Profile(props: ProfileProps) {
             }}
           >
             <div>Username:</div>
-            <TextInput
+            <Input
               autoComplete="off"
               value={props.settings.username}
               onChange={(e) =>
@@ -101,11 +93,11 @@ export default function Profile(props: ProfileProps) {
               style={{
                 width: "100%",
               }}
-            ></TextInput>
+            ></Input>
             <div>
               <strong>Theme:</strong>
             </div>
-            <GroupBox style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
               {Themes.map((theme, index) => (
                 <Frame
                   key={theme.name}
@@ -123,7 +115,7 @@ export default function Profile(props: ProfileProps) {
                   }
                   id="frame"
                 >
-                  <Radio
+                  <RadioButton
                     checked={props.settings.themeIndex === index}
                     onChange={() =>
                       props.setSettings({
@@ -132,11 +124,12 @@ export default function Profile(props: ProfileProps) {
                       })
                     }
                     value={theme.name}
-                    label={theme.name}
-                  />
+                  >
+                    {theme.name}
+                  </RadioButton>
                 </Frame>
               ))}
-            </GroupBox>
+            </div>
           </div>
         </WindowContent>
       </Window>

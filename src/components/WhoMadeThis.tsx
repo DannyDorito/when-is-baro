@@ -1,10 +1,8 @@
-import { Anchor } from "react95";
-
 export const WhoMadeThis = () => {
   return (
     <>
       Created in&nbsp;
-      <Anchor
+      <a
         href="https://code.visualstudio.com"
         target="_blank"
         hrefLang="en-gb"
@@ -12,9 +10,9 @@ export const WhoMadeThis = () => {
         aria-label="VS Code"
       >
         VS Code
-      </Anchor>
+      </a>
       , built in&nbsp;
-      <Anchor
+      <a
         href="https://react.dev/"
         target="_blank"
         hrefLang="en-gb"
@@ -22,19 +20,19 @@ export const WhoMadeThis = () => {
         aria-label="React"
       >
         React
-      </Anchor>
+      </a>
       &nbsp;and&nbsp;
-      <Anchor
-        href="https://react95.io/"
+      <a
+        href="https://www.npmjs.com/package/@react95/core"
         target="_blank"
         hrefLang="en-gb"
         rel="noopener noreferrer"
-        aria-label="react95"
+        aria-label="React 95 Core"
       >
-        react95
-      </Anchor>
+        @react95/core
+      </a>
       ,&nbsp;deployed to&nbsp;
-      <Anchor
+      <a
         href="https://www.cloudflare.com"
         target="_blank"
         hrefLang="en-gb"
@@ -42,7 +40,7 @@ export const WhoMadeThis = () => {
         aria-label="Cloudflare"
       >
         Cloudflare
-      </Anchor>
+      </a>
     </>
   );
 };
