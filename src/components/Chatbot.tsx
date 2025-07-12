@@ -290,7 +290,6 @@ export default function Chatbot(props: ChatbotProps) {
               square={true}
               style={{
                 width: "100%",
-                marginBottom: "0.25rem",
               }}
               size={"lg"}
             >
