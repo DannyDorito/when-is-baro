@@ -1,3 +1,4 @@
+import { Delete } from "@react95/icons";
 import {
   Button,
   Frame,
@@ -8,12 +9,11 @@ import {
   WindowContent,
   WindowHeader,
 } from "react95";
-import { useState } from "react";
-import type { RndState } from "../interfaces/RndState";
 import { Rnd } from "react-rnd";
-import { Delete } from "@react95/icons";
-import type { ProfileProps } from "../interfaces/ProfileProps";
+import { useState } from "react";
 import { Themes } from "../data/Themes";
+import type { ProfileProps } from "../interfaces/ProfileProps";
+import type { RndState } from "../interfaces/RndState";
 
 export default function Profile(props: ProfileProps) {
   const [rndState, setRndState] = useState<RndState>({

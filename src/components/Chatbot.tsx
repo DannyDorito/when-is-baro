@@ -1,3 +1,4 @@
+import { Delete } from "@react95/icons";
 import {
   Avatar,
   Button,
@@ -8,15 +9,15 @@ import {
   WindowContent,
   WindowHeader,
 } from "react95";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Rnd } from "react-rnd";
 import ducatsUrl from "../assets/ducats.png";
 import lotusUrl from "../assets/lotus.png";
-import { useState, type ReactNode, useEffect, useRef } from "react";
-import { Rnd } from "react-rnd";
-import { WhoMadeThis } from "./WhoMadeThis";
-import { useBaro } from "../hooks/BaroHook";
-import { Delete } from "@react95/icons";
-import type { RndState } from "../interfaces/RndState";
 import type { ChatbotProps } from "../interfaces/ChatbotProps";
+import type { RndState } from "../interfaces/RndState";
+import { useBaro } from "../hooks/BaroHook";
+import { WhatElseDidTheyMake } from "./messages/WhatElseDidTheyMake";
+import { WhoMadeThis } from "./messages/WhoMadeThis";
 
 export default function Chatbot(props: ChatbotProps) {
   const [rndState, setRndState] = useState<RndState>({
@@ -43,6 +44,8 @@ export default function Chatbot(props: ChatbotProps) {
       primary: "blue",
     },
   ]);
+
+  const [whoMadeThisSent, setWhoMadeThisSent] = useState(false);
 
   const [messageLoading, setMessageLoading] = useState(false);
   const scrollViewRef = useRef<HTMLDivElement>(null);
@@ -340,28 +343,56 @@ export default function Chatbot(props: ChatbotProps) {
                 </p>
                 WHEN BARO
               </Button>
-              <Button
-                style={{
-                  padding: "0.625rem",
-                  justifyContent: "left",
-                  marginBottom: "0.25rem",
-                  width: "100%",
-                }}
-                onClick={() =>
-                  addUserMessage(
-                    "Who made this?",
-                    "John Allison",
-                    <WhoMadeThis />,
-                    ducatsUrl
-                  )
-                }
-                disabled={messageLoading}
-              >
-                <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
-                  &bull;
-                </p>
-                Who made this?
-              </Button>
+              {!whoMadeThisSent && (
+                <Button
+                  style={{
+                    padding: "0.625rem",
+                    justifyContent: "left",
+                    marginBottom: "0.25rem",
+                    width: "100%",
+                  }}
+                  onClick={() => {
+                    addUserMessage(
+                      "Who made this?",
+                      "John Allison",
+                      <WhoMadeThis />,
+                      ducatsUrl
+                    );
+                    setWhoMadeThisSent(true);
+                  }}
+                  disabled={messageLoading}
+                >
+                  <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
+                    &bull;
+                  </p>
+                  Who made this?
+                </Button>
+              )}
+              {whoMadeThisSent && (
+                <Button
+                  style={{
+                    padding: "0.625rem",
+                    justifyContent: "left",
+                    marginBottom: "0.25rem",
+                    width: "100%",
+                  }}
+                  onClick={() => {
+                    addUserMessage(
+                      "What else did they make?",
+                      "John Allison",
+                      <WhatElseDidTheyMake />,
+                      ducatsUrl
+                    );
+                    setWhoMadeThisSent(false);
+                  }}
+                  disabled={messageLoading}
+                >
+                  <p style={{ fontSize: "2rem", marginRight: "0.75rem" }}>
+                    &bull;
+                  </p>
+                  What else did they make?
+                </Button>
+              )}
             </Frame>
           </div>
         </WindowContent>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import {
   AppBar,
   Button,
@@ -9,15 +10,16 @@ import {
   styleReset,
   Toolbar,
 } from "react95";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 
-import Chatbot from "./components/Chatbot";
 import pom from "./assets/pom.jpg";
 import lotusSmallUrl from "./assets/lotusSmall.png";
+
+import Chatbot from "./components/Chatbot";
 import Profile from "./components/Profile";
+
 import { Themes } from "./data/Themes";
 import { useSettings } from "./hooks/SettingsHook";
 import { useLocale } from "./hooks/LocaleHook";
