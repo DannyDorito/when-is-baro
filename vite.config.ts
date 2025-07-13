@@ -13,8 +13,9 @@ export default defineConfig({
         "./src/App.tsx",
         "./src/components/Chatbot.tsx",
         "./src/components/Profile.tsx",
-        "./src/components/WhoMadeThis.tsx",
-        "./src/interfaces/Themes.ts"
+        "./src/components/messages/WhoMadeThis.tsx",
+        "./src/components/messages/WhatElseDidTheyMake.tsx",
+        "./src/data/Themes.ts"
       ],
     },
   },
