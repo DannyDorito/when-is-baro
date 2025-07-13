@@ -4,7 +4,7 @@ import pamelaAnderson from "react95/dist/themes/pamelaAnderson";
 import counterStrike from "react95/dist/themes/counterStrike";
 import maple from "react95/dist/themes/maple";
 import matrix from "react95/dist/themes/matrix";
-import hotdogStand from "react95/dist/themes/hotdogStand";
+import vaporTeal from "react95/dist/themes/vaporTeal";
 import vistaesqueMidnight from "react95/dist/themes/vistaesqueMidnight";
 import tooSexy from "react95/dist/themes/tooSexy";
 
@@ -36,10 +36,10 @@ export const Themes = [
   { theme: maple, name: "Maple", primary: "#e5cc90", secondary: "#2a1801" },
   { theme: matrix, name: "Matrix", primary: "#535353", secondary: "#37ec65" },
   {
-    theme: hotdogStand,
-    name: "Hotdog Stand",
-    primary: "#ff0000",
-    secondary: "#f6fbf5",
+    theme: vaporTeal,
+    name: "Vapor Teal",
+    primary: "#01a8a8",
+    secondary: "#0a0a0a",
   },
   {
     theme: vistaesqueMidnight,
