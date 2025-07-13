@@ -13,21 +13,21 @@ import type { RndState } from "../interfaces/RndState";
 import { Rnd } from "react-rnd";
 import { Delete } from "@react95/icons";
 import type { ProfileProps } from "../interfaces/ProfileProps";
-import { Themes } from "../interfaces/Themes";
+import { Themes } from "../data/Themes";
 
 export default function Profile(props: ProfileProps) {
   const [rndState, setRndState] = useState<RndState>({
     x: 300,
     y: 80,
     width: 480,
-    height: 600,
+    height: 650,
   });
 
   return (
     <Rnd
       size={{ width: rndState.width, height: rndState.height }}
       minWidth={480}
-      minHeight={600}
+      minHeight={650}
       position={{ x: rndState.x, y: rndState.y }}
       onDragStop={(_event, d) => {
         setRndState((prev) => ({
@@ -110,7 +110,7 @@ export default function Profile(props: ProfileProps) {
                 <Frame
                   key={theme.name}
                   style={{
-                    backgroundColor: theme.colour,
+                    backgroundColor: theme.primary,
                     margin: "0.25rem",
                     padding: "0.25rem",
                     cursor: "pointer",
@@ -133,6 +133,7 @@ export default function Profile(props: ProfileProps) {
                     }
                     value={theme.name}
                     label={theme.name}
+                    style={{ color: theme.secondary }}
                   />
                 </Frame>
               ))}

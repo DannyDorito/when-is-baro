@@ -1,5 +1,5 @@
 import { useLocalStorage } from "usehooks-ts";
-import { DefaultSettings, type SettingsData } from "../interfaces/SettingsData";
+import { DefaultSettings, type SettingsData } from "../data/SettingsData";
 
 export function useSettings(): [SettingsData, typeof setSettings] {
   const [settings, setSettings] = useLocalStorage<SettingsData>(

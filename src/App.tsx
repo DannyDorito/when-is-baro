@@ -18,7 +18,7 @@ import Chatbot from "./components/Chatbot";
 import pom from "./assets/pom.jpg";
 import lotusSmallUrl from "./assets/lotusSmall.png";
 import Profile from "./components/Profile";
-import { Themes } from "./interfaces/Themes";
+import { Themes } from "./data/Themes";
 import { useSettings } from "./hooks/SettingsHook";
 import { useLocale } from "./hooks/LocaleHook";
 

@@ -33,14 +33,14 @@ export default function Chatbot(props: ChatbotProps) {
       name: string;
       message: string | ReactNode;
       image: string | undefined;
-      colour: string;
+      primary: string;
     }[]
   >([
     {
       image: ducatsUrl,
       name: "Automated Message",
       message: "This site is not affiliated with Digital Extremes.",
-      colour: "blue",
+      primary: "blue",
     },
   ]);
 
@@ -58,7 +58,7 @@ export default function Chatbot(props: ChatbotProps) {
     name: string,
     message: string | ReactNode,
     image: string | undefined,
-    colour: "red" | "blue",
+    primary: "red" | "blue",
     wait?: boolean
   ) => {
     setMessageLoading(true);
@@ -66,15 +66,15 @@ export default function Chatbot(props: ChatbotProps) {
       const randomWait = Math.random() * 2;
       setConversation((prev) => [
         ...prev,
-        { name, message: <Hourglass size={17} />, image, colour },
+        { name, message: <Hourglass size={17} />, image, primary },
       ]);
       setTimeout(() => {
         setConversation((prev) => prev.slice(0, -1));
-        setConversation((prev) => [...prev, { name, message, image, colour }]);
+        setConversation((prev) => [...prev, { name, message, image, primary }]);
         setMessageLoading(false);
       }, randomWait * 1000);
     } else {
-      setConversation((prev) => [...prev, { name, message, image, colour }]);
+      setConversation((prev) => [...prev, { name, message, image, primary }]);
       setMessageLoading(false);
     }
   };
@@ -287,7 +287,7 @@ export default function Chatbot(props: ChatbotProps) {
                             flexDirection: "column",
                           }}
                         >
-                          <div style={{ color: msg.colour }}>{msg.name}:</div>
+                          <div style={{ color: msg.primary }}>{msg.name}:</div>
                           <div>{msg.message}</div>
                         </div>
                       </div>

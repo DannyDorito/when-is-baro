@@ -1,4 +1,4 @@
-import type { SettingsData } from "./SettingsData";
+import type { SettingsData } from "../data/SettingsData";
 
 export interface ProfileProps {
   setShow: (show: boolean) => void;

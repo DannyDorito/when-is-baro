@@ -5,5 +5,5 @@ export interface SettingsData {
 
 export const DefaultSettings: SettingsData = {
   username: "User",
-  themeIndex: 0,
+  themeIndex: 1,
 };
