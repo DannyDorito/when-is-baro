@@ -3,7 +3,6 @@ import {
   Button,
   Frame,
   Hourglass,
-  ScrollView,
   Separator,
   Window,
   WindowContent,
@@ -11,7 +10,7 @@ import {
 } from "react95";
 import ducatsUrl from "../assets/ducats.png";
 import lotusUrl from "../assets/lotus.png";
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, useEffect, useRef } from "react";
 import { Rnd } from "react-rnd";
 import { WhoMadeThis } from "./WhoMadeThis";
 import { useBaro } from "../hooks/BaroHook";
@@ -46,6 +45,14 @@ export default function Chatbot(props: ChatbotProps) {
   ]);
 
   const [messageLoading, setMessageLoading] = useState(false);
+  const scrollViewRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollView = scrollViewRef.current;
+    if (scrollView) {
+      scrollView.scrollTop = scrollView.scrollHeight;
+    }
+  }, [conversation]);
 
   const addMessage = (
     name: string,
@@ -240,11 +247,14 @@ export default function Chatbot(props: ChatbotProps) {
               }}
               id="frame"
             >
-              <ScrollView
+              <div
                 style={{
                   width: "100%",
                   height: "18.4rem",
+                  overflowY: "scroll",
                 }}
+                id="scroll-view"
+                ref={scrollViewRef}
               >
                 <div>
                   {conversation.map((msg, index) => (
@@ -285,7 +295,7 @@ export default function Chatbot(props: ChatbotProps) {
                     </div>
                   ))}
                 </div>
-              </ScrollView>
+              </div>
             </Frame>
             <Avatar
               square={true}
