@@ -4,3 +4,25 @@
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+@media (max-width: 600px) {
+
+  body,
+  html {
+    min-width: 100dvw;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  .window,
+  .window-title,
+  .window-content {
+    font-size: 1rem;
+  }
+
+  button,
+  .react95__button {
+    min-height: 48px;
+    font-size: 1.1rem;
+  }
+}

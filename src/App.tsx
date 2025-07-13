@@ -62,8 +62,8 @@ const App = () => {
     <ThemeProvider theme={Themes[settings.themeIndex].theme}>
       <div
         style={{
-          minHeight: "100vh",
-          minWidth: "100vw",
+          minHeight: "100dvh",
+          minWidth: "100dvw",
           backgroundImage: `url(${pom})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
