@@ -110,7 +110,7 @@ export default function Chatbot(props: ChatbotProps) {
             {baro.relay}
           </span>
           &nbsp;and will depart&nbsp;
-          {baro.departure.toLocaleDateString()}&nbsp;at&nbsp;
+          {baro.departure.toLocaleDateString(props.locale)}&nbsp;at&nbsp;
           {baro.departure.toLocaleTimeString(props.locale, {
             hour12: true,
             hour: "numeric",
@@ -123,11 +123,14 @@ export default function Chatbot(props: ChatbotProps) {
       addUserMessage(
         "WHEN BARO",
         "Baro Bot",
-        `Baro Ki'Teer will arrive at the ${
-          baro.relay
-        } at ${baro.arrival.toLocaleString()} and depart on ${baro.departure.toLocaleTimeString(
+        `Baro Ki'Teer will arrive at the ${baro.relay} on the ${baro.arrival
+          .toLocaleString(props.locale)
+          .split(",", 1)} and depart at ${baro.departure.toLocaleTimeString(
           props.locale,
-          { hour12: true, hour: "numeric" }
+          {
+            hour12: true,
+            hour: "numeric",
+          }
         )}!`,
         ducatsUrl
       );
