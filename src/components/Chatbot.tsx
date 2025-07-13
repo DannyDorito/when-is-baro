@@ -27,7 +27,7 @@ export default function Chatbot(props: ChatbotProps) {
     height: 683,
   });
 
-  const baro = useBaro();
+  const { baroData, error } = useBaro();
 
   const [conversation, setConversation] = useState<
     {
@@ -93,9 +93,17 @@ export default function Chatbot(props: ChatbotProps) {
   };
 
   const addBaroBotMessage = () => {
-    if (!baro) return;
+    if (!baroData) {
+      addUserMessage(
+        "WHEN BARO",
+        "Baro Bot",
+        error || "Could not load Baro data. Please try again later.",
+        ducatsUrl
+      );
+      return;
+    }
 
-    if (baro.arrival < new Date()) {
+    if (baroData.arrival < new Date()) {
       addUserMessage(
         "WHEN BARO",
         "Baro Bot",
@@ -107,11 +115,11 @@ export default function Chatbot(props: ChatbotProps) {
               textDecorationThickness: "auto",
             }}
           >
-            {baro.relay}
+            {baroData.relay}
           </span>
           &nbsp;and will depart&nbsp;
-          {baro.departure.toLocaleDateString(props.locale)}&nbsp;at&nbsp;
-          {baro.departure.toLocaleTimeString(props.locale, {
+          {baroData.departure.toLocaleDateString(props.locale)}&nbsp;at&nbsp;
+          {baroData.departure.toLocaleTimeString(props.locale, {
             hour12: true,
             hour: "numeric",
           })}
@@ -123,9 +131,11 @@ export default function Chatbot(props: ChatbotProps) {
       addUserMessage(
         "WHEN BARO",
         "Baro Bot",
-        `Baro Ki'Teer will arrive at the ${baro.relay} on the ${baro.arrival
+        `Baro Ki'Teer will arrive at the ${
+          baroData.relay
+        } on the ${baroData.arrival
           .toLocaleString(props.locale)
-          .split(",", 1)} and depart at ${baro.departure.toLocaleTimeString(
+          .split(",", 1)} and depart at ${baroData.departure.toLocaleTimeString(
           props.locale,
           {
             hour12: true,
