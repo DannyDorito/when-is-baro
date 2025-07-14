@@ -18,6 +18,7 @@ import type { RndState } from "../interfaces/RndState";
 import { useBaro } from "../hooks/BaroHook";
 import { WhatElseDidTheyMake } from "./messages/WhatElseDidTheyMake";
 import { WhoMadeThis } from "./messages/WhoMadeThis";
+import { TennoConRelay, ShowTennoConRelay } from "../data/TennoConRelay";
 
 export default function Chatbot(props: ChatbotProps) {
   const [rndState, setRndState] = useState<RndState>({
@@ -103,10 +104,10 @@ export default function Chatbot(props: ChatbotProps) {
       return;
     }
 
+    let message: ReactNode = "";
+
     if (baroData.arrival < new Date()) {
-      addUserMessage(
-        "WHEN BARO",
-        "Baro Bot",
+      message = (
         <>
           Baro Ki'Teer has arrived at the&nbsp;
           <span
@@ -124,27 +125,70 @@ export default function Chatbot(props: ChatbotProps) {
             hour: "numeric",
           })}
           !
-        </>,
-        ducatsUrl
+        </>
       );
     } else {
-      addUserMessage(
-        "WHEN BARO",
-        "Baro Bot",
-        `Baro Ki'Teer will arrive at the ${
-          baroData.relay
-        } on the ${baroData.arrival
-          .toLocaleString(props.locale)
-          .split(",", 1)} and depart at ${baroData.departure.toLocaleTimeString(
-          props.locale,
-          {
+      message = (
+        <>
+          Baro Ki'Teer will arrive at the {baroData.relay} on the&nbsp;
+          {baroData.arrival.toLocaleString(props.locale).split(",", 1)} and
+          depart at&nbsp;
+          {baroData.departure.toLocaleTimeString(props.locale, {
             hour12: true,
             hour: "numeric",
-          }
-        )}!`,
-        ducatsUrl
+          })}
+          !
+        </>
       );
     }
+
+    let tennoConMessage: ReactNode = "";
+
+    if (ShowTennoConRelay && TennoConRelay.arrival < new Date()) {
+      tennoConMessage = (
+        <>
+          {message} The {TennoConRelay.relay} is currently active! It will
+          depart on&nbsp;
+          {TennoConRelay.departure.toLocaleDateString(props.locale)} at&nbsp;
+          {TennoConRelay.departure.toLocaleTimeString(props.locale, {
+            hour12: true,
+            hour: "numeric",
+          })}
+          .
+        </>
+      );
+    } else if (ShowTennoConRelay) {
+      tennoConMessage = (
+        <>
+          <br />
+          The {TennoConRelay.relay} will be available from&nbsp;
+          {TennoConRelay.arrival.toLocaleDateString(props.locale)}
+          &nbsp;at&nbsp;
+          {TennoConRelay.arrival.toLocaleTimeString(props.locale, {
+            hour12: true,
+            hour: "numeric",
+          })}
+          &nbsp;until&nbsp;
+          {TennoConRelay.departure.toLocaleDateString(props.locale)}
+          &nbsp;at&nbsp;
+          {TennoConRelay.departure.toLocaleTimeString(props.locale, {
+            hour12: true,
+            hour: "numeric",
+          })}
+          !
+        </>
+      );
+    }
+
+    addUserMessage(
+      "WHEN BARO",
+      "Baro Bot",
+      <>
+        {message}
+        {ShowTennoConRelay && tennoConMessage}
+      </>,
+      ducatsUrl
+    );
   };
 
   return (
