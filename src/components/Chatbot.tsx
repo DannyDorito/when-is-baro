@@ -130,9 +130,19 @@ export default function Chatbot(props: ChatbotProps) {
     } else {
       message = (
         <>
-          Baro Ki'Teer will arrive at the {baroData.relay} on the&nbsp;
+          Baro Ki'Teer will arrive at the&nbsp;
+          <span
+            style={{
+              textDecoration: "underline",
+              textDecorationThickness: "auto",
+            }}
+          >
+            {baroData.relay}
+          </span>&nbsp;
+          on the&nbsp;
           {baroData.arrival.toLocaleString(props.locale).split(",", 1)} and
-          depart at&nbsp;
+          depart&nbsp;
+          {baroData.departure.toLocaleDateString(props.locale)}&nbsp;at&nbsp;
           {baroData.departure.toLocaleTimeString(props.locale, {
             hour12: true,
             hour: "numeric",
