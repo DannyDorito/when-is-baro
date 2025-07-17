@@ -1,6 +1,7 @@
 import { Delete } from "@react95/icons";
 import {
   Button,
+  Checkbox,
   Frame,
   GroupBox,
   Radio,
@@ -22,6 +23,28 @@ export default function Profile(props: ProfileProps) {
     width: 480,
     height: 650,
   });
+
+  const askNotificationPermission = (checked: boolean) => {
+    if (!("Notification" in window)) {
+      console.warn("This browser does not support desktop notification");
+      return;
+    }
+
+    if (!checked) {
+      props.setSettings({
+        ...props.settings,
+        notifications: false,
+      });
+      return;
+    }
+
+    Notification.requestPermission().then((permission) => {
+      props.setSettings({
+        ...props.settings,
+        notifications: permission === "granted",
+      });
+    });
+  };
 
   return (
     <Rnd
@@ -83,61 +106,86 @@ export default function Profile(props: ProfileProps) {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "30% 70%",
-              gridTemplateRows: "auto auto",
+              gridTemplateColumns: "40% 60%",
+              gridTemplateRows: "1fr",
               gap: "0.5rem",
+              alignItems: "start",
             }}
           >
-            <div>Username:</div>
-            <TextInput
-              autoComplete="off"
-              value={props.settings.username}
-              onChange={(e) =>
-                props.setSettings({
-                  ...props.settings,
-                  username: e.target.value,
-                })
-              }
-              style={{
-                width: "100%",
-              }}
-            ></TextInput>
+            <div>
+              <div>Username:</div>
+              <TextInput
+                autoComplete="off"
+                value={props.settings.username}
+                onChange={(e) =>
+                  props.setSettings({
+                    ...props.settings,
+                    username: e.target.value,
+                  })
+                }
+                style={{
+                  width: "100%",
+                  marginTop: "0.5rem",
+                  marginBottom: "0.5rem",
+                }}
+              />
+              <div style={{ marginBottom: "0.5rem" }}>
+                <GroupBox
+                  label="Browser Notifications"
+                  style={{ marginTop: "1rem" }}
+                >
+                  <Checkbox
+                    label="Send On Arrival"
+                    checked={props.settings.notifications}
+                    onChange={(e) =>
+                      askNotificationPermission(e.target.checked)
+                    }
+                  />
+                </GroupBox>
+              </div>
+            </div>
             <div>
               <strong>Theme:</strong>
-            </div>
-            <GroupBox style={{ display: "flex", flexDirection: "column" }}>
-              {Themes.map((theme, index) => (
-                <Frame
-                  key={theme.name}
-                  style={{
-                    backgroundColor: theme.primary,
-                    margin: "0.25rem",
-                    padding: "0.25rem",
-                    cursor: "pointer",
-                  }}
-                  onChange={() =>
-                    props.setSettings({
-                      ...props.settings,
-                      themeIndex: index,
-                    })
-                  }
-                  id="frame"
-                >
-                  <Radio
-                    checked={props.settings.themeIndex === index}
+              <GroupBox
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginTop: "0.5rem",
+                }}
+              >
+                {Themes.map((theme, index) => (
+                  <Frame
+                    key={theme.name}
+                    style={{
+                      backgroundColor: theme.primary,
+                      margin: "0.25rem",
+                      padding: "0.25rem",
+                      cursor: "pointer",
+                    }}
                     onChange={() =>
                       props.setSettings({
                         ...props.settings,
                         themeIndex: index,
                       })
                     }
-                    value={theme.name}
-                    label={theme.name}
-                    style={{ color: theme.secondary }}
-                  />
-                </Frame>
-              ))}
-            </GroupBox>
+                    id="frame"
+                  >
+                    <Radio
+                      checked={props.settings.themeIndex === index}
+                      onChange={() =>
+                        props.setSettings({
+                          ...props.settings,
+                          themeIndex: index,
+                        })
+                      }
+                      value={theme.name}
+                      label={theme.name}
+                      style={{ color: theme.secondary }}
+                    />
+                  </Frame>
+                ))}
+              </GroupBox>
+            </div>
           </div>
         </WindowContent>
       </Window>

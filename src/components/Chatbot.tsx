@@ -15,7 +15,6 @@ import ducatsUrl from "../assets/ducats.png";
 import lotusUrl from "../assets/lotus.png";
 import type { ChatbotProps } from "../interfaces/ChatbotProps";
 import type { RndState } from "../interfaces/RndState";
-import { useBaro } from "../hooks/BaroHook";
 import { WhatElseDidTheyMake } from "./messages/WhatElseDidTheyMake";
 import { WhoMadeThis } from "./messages/WhoMadeThis";
 import { TennoConRelay, ShowTennoConRelay } from "../data/TennoConRelay";
@@ -27,8 +26,6 @@ export default function Chatbot(props: ChatbotProps) {
     width: 960,
     height: 683,
   });
-
-  const { baroData, error } = useBaro();
 
   const [conversation, setConversation] = useState<
     {
@@ -94,11 +91,11 @@ export default function Chatbot(props: ChatbotProps) {
   };
 
   const addBaroBotMessage = () => {
-    if (!baroData) {
+    if (!props.baroData) {
       addUserMessage(
         "WHEN BARO",
         "Baro Bot",
-        error || "Could not load Baro data. Please try again later.",
+        props.error || "Could not load Baro data. Please try again later.",
         ducatsUrl
       );
       return;
@@ -106,7 +103,7 @@ export default function Chatbot(props: ChatbotProps) {
 
     let message: ReactNode = "";
 
-    if (baroData.arrival < new Date()) {
+    if (props.baroData.arrival < new Date()) {
       message = (
         <>
           Baro Ki'Teer has arrived at the&nbsp;
@@ -116,11 +113,12 @@ export default function Chatbot(props: ChatbotProps) {
               textDecorationThickness: "auto",
             }}
           >
-            {baroData.relay}
+            {props.baroData.relay}
           </span>
           &nbsp;and will depart&nbsp;
-          {baroData.departure.toLocaleDateString(props.locale)}&nbsp;at&nbsp;
-          {baroData.departure.toLocaleTimeString(props.locale, {
+          {props.baroData.departure.toLocaleDateString(props.locale)}
+          &nbsp;at&nbsp;
+          {props.baroData.departure.toLocaleTimeString(props.locale, {
             hour12: true,
             hour: "numeric",
           })}
@@ -137,13 +135,16 @@ export default function Chatbot(props: ChatbotProps) {
               textDecorationThickness: "auto",
             }}
           >
-            {baroData.relay}
-          </span>&nbsp;
-          on the&nbsp;
-          {baroData.arrival.toLocaleString(props.locale).split(",", 1)} and
-          depart&nbsp;
-          {baroData.departure.toLocaleDateString(props.locale)}&nbsp;at&nbsp;
-          {baroData.departure.toLocaleTimeString(props.locale, {
+            {props.baroData.relay}
+          </span>
+          &nbsp; on the&nbsp;
+          {props.baroData.arrival
+            .toLocaleString(props.locale)
+            .split(",", 1)}&nbsp;
+          and depart&nbsp;
+          {props.baroData.departure.toLocaleDateString(props.locale)}
+          &nbsp;at&nbsp;
+          {props.baroData.departure.toLocaleTimeString(props.locale, {
             hour12: true,
             hour: "numeric",
           })}

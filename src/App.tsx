@@ -23,6 +23,7 @@ import Profile from "./components/Profile";
 import { Themes } from "./data/Themes";
 import { useSettings } from "./hooks/SettingsHook";
 import { useLocale } from "./hooks/LocaleHook";
+import { useBaro } from "./hooks/BaroHook";
 
 const GlobalStyles = createGlobalStyle`
   ${styleReset}
@@ -51,12 +52,35 @@ const App = () => {
   const [settings, setSettings] = useSettings();
 
   const locale = useLocale();
+  const { baroData, error } = useBaro();
 
   const [now, setNow] = useState(new Date());
   useEffect(() => {
     const interval = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (
+      settings.notifications &&
+      baroData &&
+      "Notification" in window &&
+      Notification.permission === "granted"
+    ) {
+      const now = new Date();
+      const arrival = new Date(baroData.arrival);
+      if (arrival > now) {
+        const timeout = arrival.getTime() - now.getTime();
+        const timerId = setTimeout(() => {
+          new Notification("Baro Ki'Teer has arrived!", {
+            body: `Baro is now at the ${baroData.relay}.`,
+            icon: "/ducats.png",
+          });
+        }, timeout);
+        return () => clearTimeout(timerId);
+      }
+    }
+  }, [settings.notifications, baroData]);
 
   return (
     <ThemeProvider theme={Themes[settings.themeIndex].theme}>
@@ -90,6 +114,8 @@ const App = () => {
               settings={settings}
               setSettings={setSettings}
               locale={locale}
+              baroData={baroData}
+              error={error}
             />
           )}
         </div>
