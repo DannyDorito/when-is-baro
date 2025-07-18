@@ -1,0 +1,32 @@
+{
+  "name": "When is Baro?",
+  "short_name": "When is Baro",
+  "description": "Find out when Baro Ki'Teer arrives in Warframe.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#c6c6c6",
+  "icons": [
+    {
+      "src": "/ducats.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/ducats.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "keywords": [
+    "Baro Ki'Teer",
+    "Warframe",
+    "Baro Timer",
+    "Baro Arrival",
+    "Baro Countdown",
+    "Void Trader",
+    "Warframe Events",
+    "Warframe Baro",
+    "Baro Schedule"
+  ]
+}
