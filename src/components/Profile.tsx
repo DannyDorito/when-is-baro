@@ -20,7 +20,7 @@ export default function Profile(props: ProfileProps) {
   const [rndState, setRndState] = useState<RndState>({
     x: 300,
     y: 80,
-    width: 480,
+    width: 580,
     height: 650,
   });
 
@@ -49,7 +49,7 @@ export default function Profile(props: ProfileProps) {
   return (
     <Rnd
       size={{ width: rndState.width, height: rndState.height }}
-      minWidth={480}
+      minWidth={580}
       minHeight={650}
       position={{ x: rndState.x, y: rndState.y }}
       onDragStop={(_event, d) => {
@@ -69,7 +69,7 @@ export default function Profile(props: ProfileProps) {
         }));
       }}
       style={{ zIndex: 1 }}
-      cancel="img, button, #frame"
+      cancel="img, button, #frame, fieldset"
     >
       <Window
         className="window"
@@ -131,8 +131,8 @@ export default function Profile(props: ProfileProps) {
               />
               <div style={{ marginBottom: "0.5rem" }}>
                 <GroupBox
-                  label="Browser Notifications"
-                  style={{ marginTop: "1rem" }}
+                  label="Browser Notifications:"
+                  style={{ marginTop: "1rem", cursor: "default" }}
                 >
                   <Checkbox
                     label="Send On Arrival"
@@ -151,6 +151,7 @@ export default function Profile(props: ProfileProps) {
                   display: "flex",
                   flexDirection: "column",
                   marginTop: "0.5rem",
+                  cursor: "default",
                 }}
               >
                 {Themes.map((theme, index) => (
