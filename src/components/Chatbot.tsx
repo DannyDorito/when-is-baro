@@ -19,7 +19,7 @@ import { WhatElseDidTheyMake } from "./messages/WhatElseDidTheyMake";
 import { WhoMadeThis } from "./messages/WhoMadeThis";
 import { TennoConRelay, ShowTennoConRelay } from "../data/TennoConRelay";
 
-export default function Chatbot(props: ChatbotProps) {
+export default function Chatbot(props: Readonly<ChatbotProps>) {
   const [rndState, setRndState] = useState<RndState>({
     x: 200,
     y: 30,
@@ -106,16 +106,16 @@ export default function Chatbot(props: ChatbotProps) {
     if (props.baroData.arrival < new Date()) {
       message = (
         <>
-          Baro Ki'Teer has arrived at the&nbsp;
+          Baro Ki'Teer has arrived at&nbsp;
           <span
             style={{
               textDecoration: "underline",
               textDecorationThickness: "auto",
             }}
           >
-            {props.baroData.relay}
+            {props.baroData.relay}&nbsp;
           </span>
-          &nbsp;and will depart&nbsp;
+          and will depart&nbsp;
           {props.baroData.departure.toLocaleDateString(props.locale)}
           &nbsp;at&nbsp;
           {props.baroData.departure.toLocaleTimeString(props.locale, {
@@ -290,6 +290,7 @@ export default function Chatbot(props: ChatbotProps) {
                   src={ducatsUrl}
                   width={"100%"}
                   className="unselectable"
+                  alt="Ducats"
                   style={{
                     userSelect: "none",
                     WebkitUserSelect: "none",

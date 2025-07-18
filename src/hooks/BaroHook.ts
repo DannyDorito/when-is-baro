@@ -36,8 +36,7 @@ const getBaroData = async (
     const getTimestamp = (dateObj: any) => {
       if (
         typeof dateObj === "object" &&
-        dateObj.$date &&
-        dateObj.$date.$numberLong
+        dateObj.$date?.$numberLong
       ) {
         return parseInt(dateObj.$date.$numberLong, 10);
       }

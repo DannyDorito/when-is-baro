@@ -16,7 +16,7 @@ import { Themes } from "../data/Themes";
 import type { ProfileProps } from "../interfaces/ProfileProps";
 import type { RndState } from "../interfaces/RndState";
 
-export default function Profile(props: ProfileProps) {
+export default function Profile(props: Readonly<ProfileProps>) {
   const [rndState, setRndState] = useState<RndState>({
     x: 300,
     y: 80,

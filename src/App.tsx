@@ -171,7 +171,7 @@ const App = () => {
                   alt="Lotus Logo"
                   style={{ marginRight: "0.625rem" }}
                   width={32}
-                ></img>
+                />
                 Start
               </Button>
             </div>
