@@ -422,7 +422,7 @@ export default function Chatbot(props: ChatbotProps) {
                   onClick={() => {
                     addUserMessage(
                       "Who made this?",
-                      "John Allison",
+                      "Danny_Dorito",
                       <WhoMadeThis />,
                       ducatsUrl
                     );
@@ -447,7 +447,7 @@ export default function Chatbot(props: ChatbotProps) {
                   onClick={() => {
                     addUserMessage(
                       "What else did they make?",
-                      "John Allison",
+                      "Danny_Dorito",
                       <WhatElseDidTheyMake />,
                       ducatsUrl
                     );
