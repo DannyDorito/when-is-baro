@@ -106,7 +106,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
     if (props.baroData.arrival < new Date()) {
       message = (
         <>
-          Baro Ki'Teer has arrived at&nbsp;
+          Baro Ki'Teer has arrived at{" "}
           <span
             style={{
               textDecoration: "underline",
@@ -128,7 +128,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
     } else {
       message = (
         <>
-          Baro Ki'Teer will arrive at the&nbsp;
+          Baro Ki'Teer will arrive at the{" "}
           <span
             style={{
               textDecoration: "underline",
@@ -330,7 +330,13 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
               >
                 <div>
                   {conversation.map((msg, index) => (
-                    <div key={index}>
+                    <div
+                      key={
+                        typeof msg.message === "string"
+                          ? `${msg.name}-${msg.message}-${index}`
+                          : `${msg.name}-${index}-${Math.random()}`
+                      }
+                    >
                       <div
                         style={{
                           display: "flex",
@@ -351,6 +357,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
                             msUserSelect: "none",
                             cursor: "default",
                           }}
+                          alt={`${msg.name} Avatar`}
                         ></img>
                         <div
                           style={{
@@ -386,6 +393,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
                   msUserSelect: "none",
                   cursor: "default",
                 }}
+                alt="Lotus Logo"
               ></img>
             </Avatar>
             <Frame
