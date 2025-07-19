@@ -4,4 +4,4 @@ export const TennoConRelay = {
   departure: new Date("2025-07-26T15:00:00Z"),
 }
 
-export const ShowTennoConRelay = true;
+export const ShowTennoConRelay = false;
