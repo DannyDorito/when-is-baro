@@ -22,47 +22,28 @@ const getBaroData = async (
       }
     }
 
-    const response = await fetch(
-      "https://corsproxy.io/?https://content.warframe.com/dynamic/worldState.php"
-    );
+    const response = await fetch(import.meta.env.VITE_API_ENDPOINT);
     if (!response.ok) {
-      throw new Error("Failed to fetch Baro data.");
+      setError("Could not load Baro data. Please try again later.");
     }
-    const data = await response.json();
-    const voidTraders = data.VoidTraders;
-    const baro = voidTraders[0];
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const getTimestamp = (dateObj: any) => {
-      if (
-        typeof dateObj === "object" &&
-        dateObj.$date?.$numberLong
-      ) {
-        return parseInt(dateObj.$date.$numberLong, 10);
-      }
-      return dateObj;
-    };
-
-    const relay = baro.Node.replace("HUB", " Relay");
-    const arrival = new Date(getTimestamp(baro.Activation));
-    const departure = new Date(getTimestamp(baro.Expiry));
+    const data = await response.json() as BaroData;
 
     localStorage.setItem(
       CACHE_KEY,
       JSON.stringify({
         data: {
-          relay,
-          arrival: arrival.toISOString(),
-          departure: departure.toISOString(),
+          relay: data.relay,
+          arrival: data.arrival,
+          departure: data.departure,
         },
-        expiry: baro.Expiry?.$date?.$numberLong || baro.Expiry,
+        expiry: data.departure,
       })
     );
 
     setBaroData({
-      relay,
-      arrival,
-      departure: departure,
+      relay: data.relay,
+      arrival: data.arrival,
+      departure: data.departure,
     });
   } catch (error) {
     console.error("Error fetching Baro data:", error);
