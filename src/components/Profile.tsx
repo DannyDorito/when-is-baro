@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Themes } from "../data/Themes";
 import type { ProfileProps } from "../interfaces/ProfileProps";
 import type { RndState } from "../interfaces/RndState";
+import { IgnoreDrag } from "../data/IgnoreDrag";
 
 export default function Profile(props: Readonly<ProfileProps>) {
   const [rndState, setRndState] = useState<RndState>({
@@ -69,7 +70,7 @@ export default function Profile(props: Readonly<ProfileProps>) {
         }));
       }}
       style={{ zIndex: 1 }}
-      cancel="img, button, #frame, input"
+      cancel={IgnoreDrag}
     >
       <Window
         className="window"

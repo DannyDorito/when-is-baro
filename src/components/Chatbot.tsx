@@ -18,6 +18,7 @@ import type { RndState } from "../interfaces/RndState";
 import { WhatElseDidTheyMake } from "./messages/WhatElseDidTheyMake";
 import { WhoMadeThis } from "./messages/WhoMadeThis";
 import { TennoConRelay, ShowTennoConRelay } from "../data/TennoConRelay";
+import { IgnoreDrag } from "../data/IgnoreDrag";
 
 export default function Chatbot(props: Readonly<ChatbotProps>) {
   const [rndState, setRndState] = useState<RndState>({
@@ -138,10 +139,8 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
             {props.baroData.relay}
           </span>
           &nbsp; on the&nbsp;
-          {props.baroData.arrival
-            .toLocaleString(props.locale)
-            .split(",", 1)}&nbsp;
-          and depart&nbsp;
+          {props.baroData.arrival.toLocaleString(props.locale).split(",", 1)}
+          &nbsp; and depart&nbsp;
           {props.baroData.departure.toLocaleDateString(props.locale)}
           &nbsp;at&nbsp;
           {props.baroData.departure.toLocaleTimeString(props.locale, {
@@ -226,7 +225,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
         }));
       }}
       style={{ zIndex: 0 }}
-      cancel="img, button, #frame"
+      cancel={IgnoreDrag}
     >
       <Window
         className="window"
