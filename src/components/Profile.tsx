@@ -69,7 +69,7 @@ export default function Profile(props: Readonly<ProfileProps>) {
         }));
       }}
       style={{ zIndex: 1 }}
-      cancel="img, button, #frame, fieldset"
+      cancel="img, button, #frame, input"
     >
       <Window
         className="window"
