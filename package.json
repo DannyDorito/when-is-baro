@@ -1,7 +1,7 @@
 {
   "name": "when-is-baro",
   "private": true,
-  "version": "1.1.2",
+  "version": "1.1.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,25 +11,25 @@
     "transform": "vite --debug transform"
   },
   "dependencies": {
-    "@react95/icons": "^2.5.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "@react95/icons": "^2.5.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-rnd": "^10.5.3",
     "react95": "^4.0.0",
-    "styled-components": "^6.4.1",
+    "styled-components": "^6.5.0",
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^9.39.2",
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.6.0",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.9.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.59.3",
-    "vite": "^8.0.12"
+    "typescript-eslint": "^8.66.0",
+    "vite": "^8.2.0"
   }
 }
