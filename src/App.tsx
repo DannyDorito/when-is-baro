@@ -21,6 +21,7 @@ import Chatbot from "./components/Chatbot";
 import Profile from "./components/Profile";
 
 import { Themes } from "./data/Themes";
+import { DefaultSettings } from "./data/SettingsData";
 import { useSettings } from "./hooks/SettingsHook";
 import { useLocale } from "./hooks/LocaleHook";
 import { useBaro } from "./hooks/BaroHook";
@@ -83,7 +84,7 @@ const App = () => {
   }, [settings.notifications, baroData]);
 
   return (
-    <ThemeProvider theme={Themes[settings.themeIndex].theme}>
+    <ThemeProvider theme={(Themes[settings.themeIndex] ?? Themes[DefaultSettings.themeIndex]).theme}>
       <div
         style={{
           minHeight: "100dvh",

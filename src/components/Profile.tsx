@@ -1,4 +1,3 @@
-import { Delete } from "@react95/icons";
 import { Delete } from "@react95/icons/Delete";
 import {
   Button,
@@ -26,6 +25,10 @@ export default function Profile(props: Readonly<ProfileProps>) {
     height: 650,
   });
 
+  const [notificationsBlocked, setNotificationsBlocked] = useState(
+    "Notification" in window && Notification.permission === "denied"
+  );
+
   const askNotificationPermission = (checked: boolean) => {
     if (!("Notification" in window)) {
       console.warn("This browser does not support desktop notification");
@@ -41,6 +44,7 @@ export default function Profile(props: Readonly<ProfileProps>) {
     }
 
     Notification.requestPermission().then((permission) => {
+      setNotificationsBlocked(permission === "denied");
       props.setSettings({
         ...props.settings,
         notifications: permission === "granted",
@@ -143,6 +147,12 @@ export default function Profile(props: Readonly<ProfileProps>) {
                       askNotificationPermission(e.target.checked)
                     }
                   />
+                  {notificationsBlocked && (
+                    <div style={{ marginTop: "0.5rem", fontSize: "0.85rem" }}>
+                      Notifications are blocked. Allow them in your browser's
+                      site settings to enable this.
+                    </div>
+                  )}
                 </GroupBox>
               </div>
             </div>
@@ -165,12 +175,6 @@ export default function Profile(props: Readonly<ProfileProps>) {
                       padding: "0.25rem",
                       cursor: "pointer",
                     }}
-                    onChange={() =>
-                      props.setSettings({
-                        ...props.settings,
-                        themeIndex: index,
-                      })
-                    }
                     id="frame"
                   >
                     <Radio
