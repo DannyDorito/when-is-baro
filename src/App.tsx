@@ -3,7 +3,6 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import {
   AppBar,
   Button,
-  Frame,
   MenuList,
   MenuListItem,
   Separator,
@@ -19,6 +18,7 @@ import lotusSmallUrl from "./assets/lotusSmall.png";
 
 import Chatbot from "./components/Chatbot";
 import Profile from "./components/Profile";
+import Clock from "./components/Clock";
 
 import { Themes } from "./data/Themes";
 import { DefaultSettings } from "./data/SettingsData";
@@ -54,12 +54,6 @@ const App = () => {
 
   const locale = useLocale();
   const { baroData, error } = useBaro();
-
-  const [now, setNow] = useState(new Date());
-  useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 60000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     if (
@@ -176,49 +170,7 @@ const App = () => {
                 Start
               </Button>
             </div>
-            <Frame
-              style={{
-                position: "relative",
-                display: "inline-block",
-                height: "2.508rem",
-                width: "6.239rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  justifyItems: "center",
-                  height: "100%",
-                  flexDirection: "column",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "0.95rem",
-                    lineHeight: 1.1,
-                    fontWeight: 600,
-                  }}
-                  className="unselectable"
-                >
-                  {now.toLocaleTimeString(locale, {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: true,
-                  })}
-                </span>
-                <span
-                  style={{
-                    fontSize: "0.85rem",
-                    lineHeight: 1,
-                  }}
-                  className="unselectable"
-                >
-                  {now.toLocaleDateString(locale)}
-                </span>
-              </div>
-            </Frame>
+            <Clock locale={locale} />
           </Toolbar>
         </AppBar>
       </div>

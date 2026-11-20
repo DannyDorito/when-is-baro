@@ -8,6 +8,12 @@
   <title>When is Baro?</title>
   <link rel="manifest" href="/public/manifest.webmanifest" />
 
+  <!-- Start fetching the background, fonts and API connection before the JS runs -->
+  <link rel="preconnect" href="%VITE_API_ENDPOINT%" crossorigin />
+  <link rel="preload" as="image" href="/src/assets/pom.jpg" />
+  <link rel="preload" as="font" type="font/woff2" href="/node_modules/react95/dist/fonts/ms_sans_serif.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/node_modules/react95/dist/fonts/ms_sans_serif_bold.woff2" crossorigin />
+
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="When is Baro?" />
   <meta property="og:description" content="Find out when Baro Ki'Teer arrives in Warframe." />

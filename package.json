@@ -11,6 +11,7 @@
     "transform": "vite --debug transform"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.4.0",
     "@react95/icons": "^2.13.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
