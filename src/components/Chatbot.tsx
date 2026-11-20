@@ -1,4 +1,5 @@
 import { Delete } from "@react95/icons";
+import { Delete } from "@react95/icons/Delete";
 import {
   Avatar,
   Button,
