@@ -12,7 +12,7 @@ const getBaroData = async (
     const cached = localStorage.getItem(CACHE_KEY);
     if (cached) {
       const { data, expiry } = JSON.parse(cached);
-      if (expiry && data) {
+      if (data && expiry && new Date(expiry) > new Date()) {
         setBaroData({
           relay: data.relay,
           arrival: new Date(data.arrival),
@@ -24,9 +24,11 @@ const getBaroData = async (
 
     const response = await fetch(import.meta.env.VITE_API_ENDPOINT);
     if (!response.ok) {
+      setBaroData(undefined);
       setError("Could not load Baro data. Please try again later.");
+      return;
     }
-    const data = await response.json() as BaroData;
+    const data = await response.json();
 
     localStorage.setItem(
       CACHE_KEY,
@@ -42,8 +44,8 @@ const getBaroData = async (
 
     setBaroData({
       relay: data.relay,
-      arrival: data.arrival,
-      departure: data.departure,
+      arrival: new Date(data.arrival),
+      departure: new Date(data.departure),
     });
   } catch (error) {
     console.error("Error fetching Baro data:", error);

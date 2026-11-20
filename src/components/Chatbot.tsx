@@ -102,7 +102,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
       return;
     }
 
-    let message: ReactNode = "";
+    let message: ReactNode;
 
     if (props.baroData.arrival < new Date()) {
       message = (
@@ -330,11 +330,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
                 <div>
                   {conversation.map((msg, index) => (
                     <div
-                      key={
-                        typeof msg.message === "string"
-                          ? `${msg.name}-${msg.message}-${index}`
-                          : `${msg.name}-${index}-${Math.random()}`
-                      }
+                      key={`${msg.name}-${index}`}
                     >
                       <div
                         style={{
