@@ -426,7 +426,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
                   onClick={() => {
                     addUserMessage(
                       "Who made this?",
-                      "Danny_Dorito",
+                      "JohnAllis0n",
                       <WhoMadeThis />,
                       ducatsUrl
                     );
@@ -451,7 +451,7 @@ export default function Chatbot(props: Readonly<ChatbotProps>) {
                   onClick={() => {
                     addUserMessage(
                       "What else did they make?",
-                      "Danny_Dorito",
+                      "JohnAllis0n",
                       <WhatElseDidTheyMake />,
                       ducatsUrl
                     );
